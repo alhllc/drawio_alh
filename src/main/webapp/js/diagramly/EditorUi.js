@@ -9247,14 +9247,28 @@
 		var tokens = value.split('```');
 		tokens = (tokens.length > 1) ? tokens : value.split('<pre>');
 		tokens = (tokens.length > 1) ? tokens : value.split('~~~');
-		tokens = (tokens.length > 1) ? tokens : value.split('%%');
 		tokens = (tokens.length > 1) ? tokens : value.split('(Begins)');
 		
 		var text = mxUtils.trim((tokens.length <= 1) ? value : tokens[1]);
 		var lines = text.split('\n');
-	
+		var startLine = 0;
+
+		while (startLine < lines.length &&
+			(lines[startLine] == 'mermaid' ||
+			lines[startLine].trim().length == 0 ||
+			lines[startLine].substring(0, 2) == '%%'))
+		{
+			startLine++;
+		}
+
+		if (startLine > 0)
+		{
+			lines = lines.slice(startLine);
+			text = mxUtils.trim(lines.join('\n'));
+		}
+
 		// Removes occasional mermaid tag or other text on first line
-		var type = (lines.length > 1) ? lines[1] : null;
+		var type = (lines.length > 1) ? lines[0] : null;
 
 		if (type != null)
 		{
@@ -9266,15 +9280,6 @@
 			}
 		}
 
-		if ((lines.length > 0 && mxUtils.trim(lines[0]) == 'mermaid') ||
-			(type != null && mxUtils.indexOf(
-				EditorUi.mermaidDiagramTypes, type) >= 0))
-		{
-			lines.shift();
-			text = mxUtils.trim(lines.join('\n'));
-			lines = text.split('\n');
-		}
-	
 		// Validates diagram type on first line
 		type = lines[0].split(' ')[0].replace(/:$/, '');
 		var dash = type.indexOf('-');
@@ -9284,6 +9289,9 @@
 			type = type.substring(0, dash);
 		}
 
+		EditorUi.debug('EditorUi.extractMermaidDeclaration',
+			'text', [text], 'type', [type], 'lines', lines);
+		
 		// TODO Is this too restrictive?
 		if (mxUtils.indexOf(EditorUi.mermaidDiagramTypes, type) < 0)
 		{

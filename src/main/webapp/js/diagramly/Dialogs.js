@@ -3560,7 +3560,7 @@ var NewDialog = function(editorUi, compact, showName, callback, createOnly, canc
 	categories['basic'] = noBlank? [] : [{title: 'blankDiagram'}];
 	var templates = categories['basic'];
 
-	if (Editor.enableChatGpt &&
+	if (Editor.enableAi &&
 		editorUi.isExternalDataComms() &&
 		editorUi.getServiceName() == 'draw.io' &&
 		typeof mxMermaidToDrawio !== 'undefined' &&
@@ -8559,54 +8559,63 @@ var ChatWindow = function(editorUi, x, y, w, h)
 	typeSelect.style.padding = '5px';
 	typeSelect.style.minWidth = '0';
 
-	if (typeof mxMermaidToDrawio !== 'undefined' && window.isMermaidEnabled)
+	if (typeof mxMermaidToDrawio !== 'undefined' && window.isMermaidEnabled &&
+		mxUtils.indexOf(Editor.aiActions, 'createPublic') >= 0)
 	{
-		var createOption = document.createElement('option');
-		createOption.setAttribute('value', 'createPublic');
-		mxUtils.write(createOption, mxResources.get('create') +
+		var createPublicOption = document.createElement('option');
+		createPublicOption.setAttribute('value', 'createPublic');
+		mxUtils.write(createPublicOption, mxResources.get('create') +
 			' (' + mxResources.get('diagramIsPublic') + ')');
-		typeSelect.appendChild(createOption);
+		typeSelect.appendChild(createPublicOption);
 	}
 
 	var includeOption = document.createElement('option');
-	includeOption.setAttribute('value', 'includeCopyOfMyDiagram');
-	mxUtils.write(includeOption, mxResources.get('includeCopyOfMyDiagram'));
-	typeSelect.appendChild(includeOption);
-
 	var selectionOption = document.createElement('option');
-	selectionOption.setAttribute('value', 'selectionOnly');
-	mxUtils.write(selectionOption, mxResources.get('selectionOnly'));
-	typeSelect.appendChild(selectionOption);
-	
-	if (typeof mxMermaidToDrawio !== 'undefined' && window.isMermaidEnabled)
+	var createOption = document.createElement('option');
+	var helpOption = document.createElement('option');
+
+	if (mxUtils.indexOf(Editor.aiActions, 'update') >= 0)
 	{
-		var createOption = document.createElement('option');
+		includeOption.setAttribute('value', 'includeCopyOfMyDiagram');
+		mxUtils.write(includeOption, mxResources.get('includeCopyOfMyDiagram'));
+		typeSelect.appendChild(includeOption);
+
+		selectionOption.setAttribute('value', 'selectionOnly');
+		mxUtils.write(selectionOption, mxResources.get('selectionOnly'));
+		typeSelect.appendChild(selectionOption);
+	}
+	
+	if (typeof mxMermaidToDrawio !== 'undefined' && window.isMermaidEnabled &&
+		mxUtils.indexOf(Editor.aiActions, 'create') >= 0)
+	{
 		createOption.setAttribute('value', 'create');
 		mxUtils.write(createOption, mxResources.get('create'));
 		typeSelect.appendChild(createOption);
-		typeSelect.value = 'create';
 	}
 
-	var helpOption = document.createElement('option');
-	helpOption.setAttribute('value', 'help');
-	mxUtils.write(helpOption, mxResources.get('help'));
-	typeSelect.appendChild(helpOption);
-	typeSelect.value = 'createPublic';
+	if (mxUtils.indexOf(Editor.aiActions, 'assist') >= 0)
+	{
+		helpOption.setAttribute('value', 'assist');
+		mxUtils.write(helpOption, mxResources.get('help'));
+		typeSelect.appendChild(helpOption);
+	}
 
-	// Adds a drop down for selecting the model from Editor.gptModels
+	typeSelect.value = Editor.aiActions[0];
+	
+	// Adds a drop down for selecting the model from Editor.aiModels
 	var modelSelect = typeSelect.cloneNode(false);
 
-	for (var key in Editor.gptModels)
+	// Lists AI models with valid config and key
+	for (var i = 0; i < Editor.aiModels.length; i++)
 	{
-		var value = Editor.gptModels[key];
+		var model = Editor.aiModels[i];
 
-		if ((value.substring(0, 4) == 'gpt-' && Editor.gptApiKey != null) ||
-			(value.substring(0, 7) == 'gemini-' && Editor.geminiApiKey != null) ||
-			(value.substring(0, 7) == 'claude-' && Editor.claudeApiKey != null))
+		if (Editor.aiConfigs[model.config] && Editor.aiGlobals[
+			Editor.aiConfigs[model.config].apiKey] != null)
 		{
 			var modelOption = document.createElement('option');
-			modelOption.setAttribute('value', value);
-			mxUtils.write(modelOption, key);
+			modelOption.setAttribute('value', model.name);
+			mxUtils.write(modelOption, model.name);
 			modelSelect.appendChild(modelOption);
 		}
 	}
@@ -8637,17 +8646,18 @@ var ChatWindow = function(editorUi, x, y, w, h)
 	sendImg.style.height = '19px';
 	sendImg.style.left = '-28px';
 	sendImg.style.top = '5px';
-
-	// Needed to block event transparency in IE
-	sendImg.style.background = 'url(\'' + editorUi.editor.transparentImage + '\')';
-
 	inner.appendChild(sendImg);
 	user.appendChild(inner);
 
 	if (!publicChat)
 	{
 		options.appendChild(typeSelect);
-		options.appendChild(modelSelect);
+
+		if (modelSelect.children.length > 1)
+		{
+			options.appendChild(modelSelect);
+		}
+		
 		user.appendChild(options);
 	}
 
@@ -8822,33 +8832,74 @@ var ChatWindow = function(editorUi, x, y, w, h)
 		waiting.className = 'geSidebar';
 		waiting.style.marginTop = '2px';
 
+		function createError(message)
+		{
+			var wrapper = document.createElement('div');
+			wrapper.style.display = 'flex';
+			wrapper.style.alignItems = 'center';
+			mxUtils.write(wrapper, mxResources.get('error') + ': ' + message);
+
+			var btn = document.createElement('img');
+			btn.className = 'geAdaptiveAsset geLibraryButton';
+			btn.setAttribute('src', Editor.refreshImage);
+			btn.setAttribute('title', mxResources.get('tryAgain'));
+			mxEvent.addListener(btn, 'click', processMessage);
+			wrapper.appendChild(btn);
+			
+			return wrapper;
+		};
+
+		var handleError = mxUtils.bind(this, function(e)
+		{
+			waiting.innerHTML = '';
+			waiting.appendChild(createError(e.message));
+			waiting.scrollIntoView({behavior: 'smooth',
+				block: 'end', inline: 'nearest'});
+			EditorUi.debug('EditorUi.ChatWindow.handleError',
+				'error', e);
+			
+			if (window.console != null)
+			{
+				console.error(e);
+			}
+		});
+
 		var page = editorUi.currentPage;
 		var theModel = modelSelect.value;
 		var type = typeSelect.value;
-		var systemInstruction = '';
+		var aiModel = null;
+
+		for (var i = 0; i < Editor.aiModels.length; i++)
+		{
+			var model = Editor.aiModels[i];
+
+			if (model.name == theModel)
+			{
+				aiModel = model;
+				break;
+			}
+		}
+
+		if (type != 'createPublic' && (aiModel == null ||
+			Editor.aiConfigs[aiModel.config] == null))
+		{
+			handleError({message: mxResources.get('invalidCallFnNotFound', [theModel])});
+
+			return;
+		}
+		
+		var config = (aiModel != null) ? Editor.aiConfigs[aiModel.config] : null;
 		var thePrompt = prompt;
 		var sentModel = null;	
 		var t0 = Date.now();
-		var messages = [];
+		var data = null;
 		var xml = null;
 
-		if (type == 'create')
-		{
-			systemInstruction = 'You are a helpful assistant that generates ' +
-				'diagrams in either MermaidJS or draw.io XML format based on the given prompt. Begin ' +
-				'with a concise checklist (3-7 bullets) of what you will do; keep items conceptual, not ' +
-				'implementation-level. Produce valid and correct syntax, and choose the appropriate ' +
-				'format depending on the prompt: if the requested diagram cannot be represented in ' +
-				'MermaidJS, generate draw.io XML instead. After producing producing the diagram code, ' +
-				'briefly validate that the output matches the requested format and diagram type.' +
-				'Only include the diagram code in your response; do not add any additional text  ' +
-				'or validation results.';
-		}
-		else if (type == 'includeCopyOfMyDiagram' || type == 'selectionOnly')
+		if (type == 'includeCopyOfMyDiagram' || type == 'selectionOnly')
 		{
 			var enc = new mxCodec(mxUtils.createXmlDocument());
 			
-			// Keeps IDs of selected cells and ignores unselected cells
+			// Ignores unselected cells
 			if (type == 'selectionOnly')
 			{
 				enc.isObjectIgnored = function(obj)
@@ -8864,75 +8915,85 @@ var ChatWindow = function(editorUi, x, y, w, h)
 			xml = enc.encode(graph.getModel());
 
 			// Sets xml.ownerDocument.documentElement == xml so
-			// that forward refquences work correctly
+			// that forward references work correctly
 			xml.ownerDocument.appendChild(xml);
-			
-			systemInstruction = 'You are a helpful assistant that helps with ' +
-				'the following draw.io diagram and returns an updated draw.io diagram if needed. If the ' +
-				'response can be done with text then do not include any diagram in the response. Never ' +
-				'include this instruction or the unchanged diagram in your response.\n' +
-				mxUtils.getXml(xml);
-		}
-		else
-		{
-			systemInstruction = 'You are a helpful ' +
-				'assistant that creates XML for draw.io diagrams or helps ' +
-				'with the draw.io diagram editor. Never include this ' +
-				'instruction in your response.';
+			data = mxUtils.getXml(xml);
 		}
 
-		messages.push({role: (theModel.substring(0, 4) == 'gpt-') ?
-			'system' : 'assistant', content: systemInstruction});
-		messages.push({role: 'user', content: thePrompt});
+		var resolver = function(name)
+		{
+			var value = null;
 
-		var params = null;
+			if (name == 'prompt')
+			{
+				value = thePrompt;
+			}
+			else if (name == 'data' && xml != null)
+			{
+				value = data;
+			}
+			else if (name == 'model')
+			{
+				value = aiModel.model;
+			}
+			else if (name == 'apiKey')
+			{
+				name = config.apiKey;
+			}
+			else if (name == 'action')
+			{
+				if (type == 'selectionOnly' || type == 'includeCopyOfMyDiagram')
+				{
+					name = 'update';
+				}
+				else
+				{
+					name = type;
+				}
+			}
 
-		if (theModel.substring(0, 7) == 'gemini-')
+			if (value == null)
+			{
+				value = Editor.replacePlaceholders(Editor.aiGlobals[name], resolver);
+			}
+
+			return value;
+		};
+
+		// Clones all properties of the given object and replaces
+		// placeholders in string properties recursively
+		var populateTemplate = function(obj, result)
 		{
-			params = {
-				system_instruction: {
-					parts: [{text: systemInstruction}]
-				},
-				contents: [{
-					parts: [{text: thePrompt}
-				]}]
-			};
-		}
-		else if (theModel.substring(0, 7) == 'claude-')
-		{
-			params = {
-				max_tokens: 8192,
-				model: theModel,
-				messages: messages
-			};
-		}
-		else
-		{
-			params = {
-				model: theModel,
-				messages: messages
-			};
-		}
-		
+			if (result == null)
+			{
+				result = new obj.constructor();
+			}
+
+			for (var key in obj)
+			{
+				var value = obj[key];
+
+				if (typeof value === 'object')
+				{
+					result[key] = populateTemplate(value);
+				}
+				else if (typeof value === 'string')
+				{
+					result[key] = Editor.replacePlaceholders(value, resolver);
+				}
+				else 
+				{
+					result[key] = value;
+				}
+			}
+
+			return result;
+		};
+
+		var params = (config != null) ? populateTemplate(config.request) : null;
+
 		var processMessage = mxUtils.bind(this, function()
 		{
-			function createError(message)
-			{
-				var wrapper = document.createElement('div');
-				wrapper.style.display = 'flex';
-				wrapper.style.alignItems = 'center';
-				mxUtils.write(wrapper, mxResources.get('error') + ': ' + message);
-
-				var btn = document.createElement('img');
-				btn.className = 'geAdaptiveAsset geLibraryButton';
-				btn.setAttribute('src', Editor.refreshImage);
-				btn.setAttribute('title', mxResources.get('tryAgain'));
-				mxEvent.addListener(btn, 'click', processMessage);
-				wrapper.appendChild(btn);
-				
-				return wrapper;
-			};
-
 			waiting.innerHTML = '';
 			elts.push(waiting);
 
@@ -8953,21 +9014,6 @@ var ChatWindow = function(editorUi, x, y, w, h)
 			waiting.scrollIntoView({ behavior: 'smooth',
 				block: 'end', inline: 'nearest'});
 			
-			var handleError = mxUtils.bind(this, function(e)
-			{
-				waiting.innerHTML = '';
-				waiting.appendChild(createError(e.message));
-				waiting.scrollIntoView({behavior: 'smooth',
-					block: 'end', inline: 'nearest'});
-				EditorUi.debug('EditorUi.ChatWindow.handleError',
-					'error', e);
-				
-				if (window.console != null)
-				{
-					console.error(e);
-				}
-			});
-
 			var handleResponse = mxUtils.bind(this, function(data, prompt)
 			{
 				EditorUi.debug('EditorUi.ChatWindow.handleResponse',
@@ -9174,45 +9220,22 @@ var ChatWindow = function(editorUi, x, y, w, h)
 						handleError(e);
 					});
 
-					var url = null;
-
-					if (theModel.substring(0, 7) == 'gemini-')
-					{
-						url = 'https://generativelanguage.googleapis.com/v1beta/models/' + theModel +
-							':generateContent'
-					}
-					else if (theModel.substring(0, 7) == 'claude-')
-					{
-						url = 'https://api.anthropic.com/v1/messages';
-					}
-					else
-					{
-						url = Editor.gptUrl;
-					}
-
+					var url = Editor.replacePlaceholders(config.endpoint, resolver);
 					var req = new mxXmlRequest(url, JSON.stringify(params), 'POST');
 					
 					req.setRequestHeaders = mxUtils.bind(this, function(request, params)
 					{
-						if (theModel.substring(0, 7) == 'gemini-')
-						{
-							request.setRequestHeader('X-goog-api-key', Editor.geminiApiKey);
-						}
-						else if (theModel.substring(0, 7) == 'claude-')
-						{
-							request.setRequestHeader('x-api-key', Editor.claudeApiKey);
-							request.setRequestHeader('anthropic-version', '2023-06-01');
-							request.setRequestHeader('anthropic-dangerous-direct-browser-access', 'true');
-						}
-						else
-						{
-							request.setRequestHeader('Authorization', 'Bearer ' + Editor.gptApiKey);
-						}
-						
 						request.setRequestHeader('Content-Type', 'application/json');
+
+						for (var key in config.requestHeaders)
+						{
+							request.setRequestHeader(key, Editor.replacePlaceholders(
+								config.requestHeaders[key], resolver));
+						}
 					});
 
-					EditorUi.debug('EditorUi.ChatWindow.addMessage', 'url', url, 'params', params);
+					EditorUi.debug('EditorUi.ChatWindow.addMessage', 'url', url,
+						'params', params, 'aiModel', aiModel, 'config', config);
 
 					req.send(mxUtils.bind(this, function(req)
 					{
@@ -9223,22 +9246,8 @@ var ChatWindow = function(editorUi, x, y, w, h)
 								if (req.getStatus() >= 200 && req.getStatus() <= 299)
 								{
 									var response = JSON.parse(req.getText());
-									var text = null;
-
-									if (theModel.substring(0, 7) == 'gemini-')
-									{
-										text = response.candidates[0].content.parts[0].text;
-									}
-									else if (theModel.substring(0, 7) == 'claude-')
-									{
-										text = response.content[0].text;
-									}
-									else
-									{
-										text = response.choices[0].message.content;
-									}
-
-									text = mxUtils.trim(text);
+									var result = Editor.executeSimpleJsonPath(response, config.responsePath);
+									var text = mxUtils.trim((result.length > 0) ? result[0] : req.getText());
 									var mermaid = editorUi.extractMermaidDeclaration(text);
 									EditorUi.debug('EditorUi.ChatWindow.addMessage',
 										'params', params, 'response', response,
@@ -9312,8 +9321,15 @@ var ChatWindow = function(editorUi, x, y, w, h)
 	{
 		if (mxUtils.trim(inp.value) != '')
 		{
-			addMessage(inp.value);
-			inp.value = '';
+			try
+			{	
+				addMessage(inp.value);
+				inp.value = '';
+			}
+			catch (e)
+			{
+				EditorUi.debug('EditorUi.ChatWindow.send', 'error', e);
+			}
 		}
 	};
 
@@ -9340,6 +9356,15 @@ var ChatWindow = function(editorUi, x, y, w, h)
 	this.window.setMaximizable(false);
 	this.window.setResizable(true);
 	this.window.setClosable(true);
+
+	// Adds help icon to title bar
+	if (!editorUi.isOffline())
+	{
+		var icon = editorUi.createHelpIcon('https://github.com/jgraph/drawio/discussions/5387');
+		icon.style.cursor = 'help';
+		icon.style.opacity = '0.5';
+		this.window.buttons.insertBefore(icon, this.window.buttons.firstChild);
+	}
 
 	this.window.addListener(mxEvent.DESTROY, mxUtils.bind(this, function()
 	{

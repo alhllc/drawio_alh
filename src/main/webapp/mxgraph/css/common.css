@@ -54,6 +54,9 @@ td.mxWindowTitle {
  	padding-top: 4px;
  	padding-bottom: 6px;
  	color: black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 td.mxWindowPane {
 	vertical-align: top;

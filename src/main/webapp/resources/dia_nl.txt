@@ -1323,3 +1323,4 @@ delCachedData=Tijdelijke opgeslag wissen
 k15tPagesError=Fout bij ophalen Scrollpagina's. Is Scroll Versions geïnstalleerd?
 drawioUninstalled=draw.io is verwijderd, de editor zal nu sluiten
 confAttachmentArchived=Diagram behoort tot een gearchiveerde pagina en kan niet worden geladen. Herstel de pagina (ID: {1}) om deze te laden.
+confDiagramMacroDowngrade=The diagram is saved but the page macro cannot be updated as the diagraam revision in the macro is newer. Please edit the diagram from Confluence page editor.

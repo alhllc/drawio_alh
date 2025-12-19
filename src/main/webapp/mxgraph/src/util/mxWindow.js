@@ -348,7 +348,6 @@ mxWindow.prototype.init = function(x, y, width, height, style)
 	this.buttons.style.position = 'absolute';
 	this.buttons.style.display = 'inline-block';
 	this.buttons.style.right = '4px';
-	this.buttons.style.top = '5px';
 	this.title.appendChild(this.buttons);
 	
 	tr.appendChild(this.title);

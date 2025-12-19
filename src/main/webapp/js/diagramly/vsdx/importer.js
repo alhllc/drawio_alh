@@ -5530,6 +5530,12 @@ var com;
                         Color.NONE_$LI$ = function () { if (Color.NONE == null)
                             Color.NONE = new Color(-1, -1, -1); return Color.NONE; };
                         ;
+                        Color.getHexColor = function(color) {
+                            if (typeof color === 'string') {
+                                return color; // assume it's already hex
+                            }
+                            return color.toHexStr();
+                        };
                         Color.prototype.getRed = function () {
                             return this.red;
                         };
@@ -8262,7 +8268,7 @@ var com;
                                 var theme_7 = this.getTheme();
                                 if (theme_7 != null) {
                                     var colorObj = this.isVertex() ? theme_7.getLineColor$com_mxgraph_io_vsdx_theme_QuickStyleVals(this.getQuickStyleVals()) : theme_7.getConnLineColor(this.getQuickStyleVals());
-                                    color = colorObj.toHexStr();
+                                    color = com.mxgraph.io.vsdx.theme.Color.getHexColor(colorObj);
                                 }
                                 else {
                                     color = "";
@@ -8304,7 +8310,7 @@ var com;
                             var theme_8 = this.getTheme();
                             if (theme_8 != null) {
                                 var color = theme_8.getFillColor$com_mxgraph_io_vsdx_theme_QuickStyleVals(this.getQuickStyleVals());
-                                fillForeColor = color.toHexStr();
+                                fillForeColor = com.mxgraph.io.vsdx.theme.Color.getHexColor(color);
                             }
                             else {
                                 fillForeColor = "#FFFFFF";
@@ -8429,7 +8435,7 @@ var com;
                             var theme_9 = this.getTheme();
                             if (theme_9 != null) {
                                 var colorObj = this.isVertex() ? theme_9.getFontColor$com_mxgraph_io_vsdx_theme_QuickStyleVals(this.getQuickStyleVals()) : theme_9.getConnFontColor(this.getQuickStyleVals());
-                                color = colorObj.toHexStr();
+                                color = com.mxgraph.io.vsdx.theme.Color.getHexColor(colorObj);
                             }
                             else {
                                 color = "#000000";

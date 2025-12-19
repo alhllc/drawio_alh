@@ -1323,3 +1323,4 @@ delCachedData=Delete Cached Data
 k15tPagesError=Error retrieving Scroll pages. Is Scroll Versions installed?
 drawioUninstalled=draw.io has been uninstalled, the editor will now close
 confAttachmentArchived=Diagram belongs to an archived page and cannot be loaded. Restore the page (ID: {1}) to load it.
+confDiagramMacroDowngrade=The diagram is saved but the page macro cannot be updated as the diagraam revision in the macro is newer. Please edit the diagram from Confluence page editor.

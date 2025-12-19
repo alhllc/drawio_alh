@@ -132,37 +132,6 @@
 			dlg.init();
 		});
 		
-		if (Editor.enableChatGpt &&
-			editorUi.isExternalDataComms() &&
-			editorUi.getServiceName() == 'draw.io' &&
-			typeof mxMermaidToDrawio !== 'undefined' &&
-			window.isMermaidEnabled)
-		{
-			var generateAction = editorUi.actions.put('generate', new Action('generate', function()
-			{
-				if (editorUi.chatWindow != null)
-				{
-					editorUi.chatWindow.window.setVisible(!editorUi.chatWindow.window.isVisible());
-				}
-				else
-				{
-					editorUi.openGenerateDialog('');
-				}
-			}));
-
-			generateAction.isEnabled = function()
-			{
-				return isGraphEnabled();
-			};
-
-			generateAction.setToggleAction(true);
-
-			generateAction.setSelectedCallback(function()
-			{
-				return editorUi.chatWindow != null && editorUi.chatWindow.window.isVisible();
-			});
-		}
-
 		editorUi.actions.put('insertTemplate', new Action('template' + '...', function()
 		{
 			editorUi.openTemplateDialog();
@@ -919,23 +888,39 @@
 		}), null, null, Editor.ctrlKey + '+K');
 		action.setToggleAction(true);
 		action.setSelectedCallback(mxUtils.bind(this, function() { return this.tagsWindow != null && this.tagsWindow.window.isVisible(); }));
-
-		if (Editor.gptApiKey != null && Editor.gptModels != null && Editor.gptUrl != null &&
-			!editorUi.isOffline() && !EditorUi.isElectronApp)
+		
+		if (Editor.enableAi &&
+			!editorUi.isOffline() &&
+			!EditorUi.isElectronApp && 
+			Editor.aiActions.length > 0 &&
+			editorUi.isExternalDataComms() &&
+			editorUi.getServiceName() == 'draw.io' &&
+			typeof mxMermaidToDrawio !== 'undefined' &&
+			window.isMermaidEnabled)
 		{
-			action = editorUi.actions.addAction('generate', mxUtils.bind(this, function()
+			var generateAction = editorUi.actions.put('generate', new Action('generate', function()
 			{
-				if (editorUi.chatWindow == null)
-				{
-					editorUi.openGenerateDialog();
-				}
-				else
+				if (editorUi.chatWindow != null)
 				{
 					editorUi.chatWindow.window.setVisible(!editorUi.chatWindow.window.isVisible());
 				}
+				else
+				{
+					editorUi.openGenerateDialog('');
+				}
 			}));
-			action.setToggleAction(true);
-			action.setSelectedCallback(mxUtils.bind(this, function() { return editorUi.chatWindow != null && editorUi.chatWindow.window.isVisible(); }));
+
+			generateAction.isEnabled = function()
+			{
+				return isGraphEnabled();
+			};
+
+			generateAction.setToggleAction(true);
+
+			generateAction.setSelectedCallback(function()
+			{
+				return editorUi.chatWindow != null && editorUi.chatWindow.window.isVisible();
+			});
 		}
 
 		action = editorUi.actions.addAction('findReplace', mxUtils.bind(this, function(arg1, evt)

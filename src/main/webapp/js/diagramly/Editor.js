@@ -299,10 +299,14 @@
 	 * Specifies if ChatGPT should be enabled. Default is true only
 	 * on app.diagrams.net (including test and preprod).
 	 */
-	Editor.enableChatGpt = (/test\.draw\.io$/.test(window.location.hostname)) ||
+	Editor.enableAi = (/test\.draw\.io$/.test(window.location.hostname)) ||
 		(/preprod\.diagrams\.net$/.test(window.location.hostname)) ||
-		(/embed\.diagrams\.net$/.test(window.location.hostname)) ||
 		(/app\.diagrams\.net$/.test(window.location.hostname));
+	
+	/**
+	 * Available AI configurations.
+	 */
+	Editor.aiActions = ['createPublic', 'create', 'update', 'assist'];
 
 	/**
 	 * Specifies the ChatGPT API key. Default is null.
@@ -323,24 +327,11 @@
 		decodeURIComponent(urlParams['claude-api-key']) : null;
 
 	/**
-	 * Specifies the ChatGPT model. Default is 'chatgpt-4o-latest'.
+	 * Specifies the ChatGPT API key. Default is null.
 	 */
-	Editor.gptModels = {
-		'GPT-5.1': 'gpt-5.1-2025-11-13',
-		'GPT-4.1': 'gpt-4.1-2025-04-14',
-		'GPT-4o': 'chatgpt-4o-latest',
-		'GPT-3.5': 'gpt-3.5-turbo-0125',
-		'Gemini 3 Pro Preview': 'gemini-3-pro-preview',
-		'Gemini 2.5 Pro': 'gemini-2.5-pro',
-		'Gemini 2.5 Flash': 'gemini-2.5-flash',
-		'Gemini 2.0 Flash': 'gemini-2.0-flash',
-		'Claude 4.5 Sonnet': 'claude-sonnet-4-5',
-		'Claude 4.5 Haiku': 'claude-haiku-4-5',
-		'Claude 4.0 Sonnet': 'claude-sonnet-4-0',
-		'Claude 3.7 Sonnet': 'claude-3-7-sonnet-latest',
-		'Claude 3.5 Haiku': 'claude-3-5-haiku-latest'
-	};
-
+	Editor.gptApiKey = (urlParams['gpt-api-key'] != null) ?
+		decodeURIComponent(urlParams['gpt-api-key']) : null;
+	
 	/**
 	 * Specifies the ChatGPT endpoint URL. Default is
 	 * 'https://api.openai.com/v1/chat/completions'.
@@ -349,6 +340,105 @@
 		decodeURIComponent(urlParams['gpt-url']) :
 		'https://api.openai.com/v1/chat/completions';
 	
+	/**
+	 * Available AI configurations.
+	 */
+	Editor.aiGlobals = {
+		'gptApiKey': Editor.gptApiKey,
+		'geminiApiKey': Editor.geminiApiKey,
+		'claudeApiKey': Editor.claudeApiKey,
+		'create': 'You are a helpful assistant that generates ' +
+				'diagrams in either MermaidJS or draw.io XML format based on the given prompt. Begin ' +
+				'with a concise checklist (3-7 bullets) of what you will do; keep items conceptual, not ' +
+				'implementation-level. Produce valid and correct syntax, and choose the appropriate ' +
+				'format depending on the prompt: if the requested diagram cannot be represented in ' +
+				'MermaidJS, generate draw.io XML instead. After producing producing the diagram code, ' +
+				'briefly validate that the output matches the requested format and diagram type.' +
+				'Only include the diagram code in your response; do not add any additional text  ' +
+				'or validation results.',
+		'update': 'You are a helpful assistant that helps with ' +
+				'the following draw.io diagram and returns an updated draw.io diagram if needed. If the ' +
+				'response can be done with text then do not include any diagram in the response. Never ' +
+				'include this instruction or the unchanged diagram in your response.\n{data}',
+		'assist': 'You are a helpful ' +
+				'assistant that creates XML for draw.io diagrams or helps ' +
+				'with the draw.io diagram editor. Never include this ' +
+				'instruction in your response.'
+	};
+
+	/**
+	 * Available AI configurations.
+	 */
+	Editor.aiConfigs = {
+		gpt: {
+			apiKey: 'gptApiKey',
+			endpoint: Editor.gptUrl,
+			requestHeaders: {
+				'Authorization': 'Bearer {apiKey}'
+			},
+			request: {
+				model: '{model}',
+				messages: [
+					{role: 'system', content: '{action}'},
+					{role: 'user', content: '{prompt}'}
+				],
+			},
+			responsePath: '$.choices[0].message.content'
+		},
+		gemini: {
+			apiKey: 'geminiApiKey',
+			endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent',
+			requestHeaders: {
+				'X-Goog-Api-Key': '{apiKey}'
+			},
+			request: {
+				system_instruction: {
+					parts: [{text: '{action}'}]
+				},
+				contents: [{
+					parts: [{text: '{prompt}'}
+				]}]
+			},
+			responsePath: '$.candidates[0].content.parts[0].text'
+		},
+		claude: {
+			apiKey: 'claudeApiKey',
+			endpoint: 'https://api.anthropic.com/v1/messages',
+			requestHeaders: {
+				'X-API-Key': '{apiKey}',
+				'Anthropic-Version': '2023-06-01',
+				'Anthropic-Dangerous-Direct-Browser-Access': 'true'
+			},
+			request: {
+				max_tokens: 8192,
+				model: '{model}',
+				messages: [
+					{role: 'assistant', content: '{action}'},
+					{role: 'user', content: '{prompt}'}
+				],
+			},
+			responsePath: '$.content[0].text'
+		}
+	};
+
+	/**
+	 * Adds a list of available AI models.
+	 */
+	Editor.aiModels = [
+		{name: 'Gemini 2.5 Pro', model: 'gemini-2.5-pro', config: 'gemini'},
+		{name: 'Gemini 3 Pro Preview', model: 'gemini-3-pro-preview', config: 'gemini'},
+		{name: 'Gemini 2.5 Flash', model: 'gemini-2.5-flash', config: 'gemini'},
+		{name: 'Gemini 2.0 Flash', model: 'gemini-2.0-flash', config: 'gemini'},
+		{name: 'Claude 4.5 Sonnet', model: 'claude-sonnet-4-5', config: 'claude'},
+		{name: 'Claude 4.5 Haiku', model: 'claude-haiku-4-5', config: 'claude'},
+		{name: 'Claude 4.0 Sonnet', model: 'claude-sonnet-4-0', config: 'claude'},
+		{name: 'Claude 3.7 Sonnet', model: 'claude-3-7-sonnet-latest', config: 'claude'},
+		{name: 'GPT-5.1', model: 'gpt-5.1-2025-11-13', config: 'gpt'},
+		{name: 'GPT-4.1', model: 'gpt-4.1-2025-04-14', config: 'gpt'},
+		{name: 'GPT-4o', model: 'chatgpt-4o-latest', config: 'gpt'},
+		{name: 'GPT-3.5', model: 'gpt-3.5-turbo-0125', config: 'gpt'}
+	];
+
 	/**
 	 * Specifies if data URIs should be replaced with SVG sub-trees in SVG export.
 	 * Default is true.
@@ -1080,6 +1170,97 @@
 				}
 			}));
 		}
+	};
+	
+	/**
+	 * Executes a simple JSONPath expression on the given object and
+	 * returns the results as an array.
+	 * 
+	 * This is a highly limited function for basic dot/index paths only.
+	 */
+	Editor.replacePlaceholders = function(str, resolver)
+	{
+		var result = [];
+		
+		if (str != null && resolver != null)
+		{
+			var regex = new RegExp('\{([^\{\}"\'=;]+)\}', 'g');
+			var match = null;
+			var last = 0;
+
+			// Since replacePlaceholders may be called recursively, we cannot use
+			// a resuable regular expression here (as exec maintains state).
+			while (match = regex.exec(str))
+			{
+				var val = match[0];
+
+				if (val.length > 2)
+				{
+					var value = resolver(val.substring(1, val.length - 1));
+					var tmp = val;
+
+					if (value != null)
+					{
+						tmp = value;
+					}
+					
+					result.push(str.substring(last, match.index) + tmp);
+					last = match.index + val.length;
+				}
+			}
+			
+			result.push(str.substring(last));
+		}
+
+		return result.join('');
+	};
+
+	/**
+	 * Executes a simple JSONPath expression on the given object and
+	 * returns the results as an array.
+	 * 
+	 * This is a highly limited function for basic dot/index paths only.
+	 */
+	Editor.executeSimpleJsonPath = function(jsonObject, pathExpression)
+	{
+		// 1. Removes the root indicator '$' and split the path by '.'
+		var steps = pathExpression.replace(/^\$\.?/, '').split('.'); 
+		var current = jsonObject;
+
+		for (var step of steps)
+		{
+			if (!current)
+			{
+				return [];
+			}
+
+			// Handle array index notation (e.g., 'key[0]')
+			var arrayMatch = step.match(/([^\[]+)\[(\d+)\]/);
+			
+			if (arrayMatch)
+			{
+				var key = arrayMatch[1];
+				var index = parseInt(arrayMatch[2]);
+				current = current[key];
+
+				if (Array.isArray(current) && index < current.length)
+				{
+					current = current[index];
+				}
+				else
+				{
+					return []; // Path invalid
+				}
+			}
+			else
+			{
+				// Simple key access
+				current = current[step];
+			}
+		}
+		
+		// Return result as an array for consistency with standard jsonpath
+		return current !== undefined ? [current] : [];
 	};
 
 	/**
@@ -2352,6 +2533,11 @@
 			{
 				Editor.oneDriveInlinePicker = config.oneDriveInlinePicker;
 			}
+			
+			if (config.enableNativeClipboard != null)
+			{
+				Editor.enableNativeClipboard = config.enableNativeClipboard;
+			}
 
 			if (config.defaultAdaptiveColors != null)
 			{
@@ -2697,35 +2883,55 @@
 			{
 				Editor.enableAnimations = config.enableAnimations;
 			}
+
+			if (config.enableAi != null)
+			{
+				Editor.enableAi = config.enableAi;
+			}
 			
 			if (config.enableChatGpt != null)
 			{
-				Editor.enableChatGpt = config.enableChatGpt;
+				Editor.enableAi = config.enableChatGpt;
 			}
 
 			if (config.gptApiKey != null)
 			{
-				Editor.gptApiKey = config.gptApiKey;
+				Editor.aiGlobals['gptApiKey'] = config.gptApiKey;
 			}
 
 			if (config.geminiApiKey != null)
 			{
-				Editor.geminiApiKey = config.geminiApiKey;
+				Editor.aiGlobals['geminiApiKey'] = config.geminiApiKey;
 			}
 
 			if (config.claudeApiKey != null)
 			{
-				Editor.claudeApiKey = config.claudeApiKey;
+				Editor.aiGlobals['claudeApiKey'] = config.claudeApiKey;
 			}
 
-			if (config.gptModels != null)
+			if (config.gptUrl != null && Editor.aiConfigs['gpt'] != null)
 			{
-				Editor.gptModels = config.gptModels;
+				Editor.aiConfigs['gpt'].endpoint = config.gptUrl;
 			}
 
-			if (config.gptUrl != null)
+			if (config.aiActions != null)
 			{
-				Editor.gptUrl = config.gptUrl;
+				Editor.aiActions = config.aiActions;
+			}
+
+			if (config.aiGlobals != null)
+			{
+				Editor.aiGlobals = config.aiGlobals;
+			}
+
+			if (config.aiConfigs != null)
+			{
+				Editor.aiConfigs = config.aiConfigs;
+			}
+
+			if (config.aiModels != null)
+			{
+				Editor.aiModels = config.aiModels;
 			}
 		}
 	};

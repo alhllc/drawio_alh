@@ -5421,6 +5421,7 @@ Graph.prototype.replacePlaceholders = function(cell, str, vars, translate)
 	
 	if (str != null)
 	{
+		var match = null;
 		var last = 0;
 		
 		while (match = this.placeholderPattern.exec(str))

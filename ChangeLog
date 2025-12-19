@@ -1,3 +1,16 @@
+19-DEC-2025: 29.2.9
+
+- Updates MathJax fonts to 4.1.0
+
+18-DEC-2025: 29.2.8
+
+- Adds configuration options for custom LLMs
+- Updates DOMPurify from 3.3.0 to 3.3.1
+- Updates MathJax from 4.0.0 to 4.1.0
+- Adds enableNativeClipboard config switch [jgraph/drawio#5383]
+- Renames enableChatGpt to enableAi
+- Checks for string color instead of object [DID-17282]
+
 10-DEC-2025: 29.2.7
 
 - Reverts edit icon for local .html files [jgraph/drawio#5375]

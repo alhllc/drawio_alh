@@ -1323,3 +1323,4 @@ delCachedData=Hapus Data yang Disinggahkan
 k15tPagesError=Galat saat mengambil halaman Scroll. Apakah Scroll Versions terpasang?
 drawioUninstalled=draw.io telah dibongkar instalasinya, editor kini akan ditutup
 confAttachmentArchived=Diagram milik dari halaman yang diarsipkan dan tidak bisa dimuat. Pulihkan halaman (ID: {1}) untuk memuatnya.
+confDiagramMacroDowngrade=The diagram is saved but the page macro cannot be updated as the diagraam revision in the macro is newer. Please edit the diagram from Confluence page editor.

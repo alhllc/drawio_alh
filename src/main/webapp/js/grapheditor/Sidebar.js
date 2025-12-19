@@ -1248,7 +1248,7 @@ Sidebar.prototype.addSearchPalette = function(expand)
 			input.value = '';
 		}), parent);
 		
-		if (Editor.enableChatGpt &&
+		if (Editor.enableAi &&
 			!editorUi.isOffline() &&
 			editorUi.isOwnGDriveDomain() &&
 			editorUi.isExternalDataComms() &&

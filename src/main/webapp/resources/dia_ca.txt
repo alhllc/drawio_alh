@@ -1323,3 +1323,4 @@ delCachedData=Suprimeix les Dades de la Memòria Cau
 k15tPagesError=Error en recuperar les pàgines Scroll. Scroll Versions està instal·lat?
 drawioUninstalled=draw.io s'ha desinstal·lat, l'editor ara es tancarà
 confAttachmentArchived=El diagrama pertany a una pàgina arxivada i no es pot carregar. Restaureu la pàgina (ID: {1}) per carregar-la.
+confDiagramMacroDowngrade=The diagram is saved but the page macro cannot be updated as the diagraam revision in the macro is newer. Please edit the diagram from Confluence page editor.

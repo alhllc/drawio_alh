@@ -1323,3 +1323,4 @@ delCachedData=delCachedData
 k15tPagesError=k15tPagesError
 drawioUninstalled=drawioUninstalled
 confAttachmentArchived=confAttachmentArchived
+confDiagramMacroDowngrade=confDiagramMacroDowngrade
