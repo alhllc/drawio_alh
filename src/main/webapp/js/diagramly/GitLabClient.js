@@ -1235,15 +1235,23 @@ GitLabClient.prototype.showGitLabDialog = function(showFiles, fn, hideNoFilesErr
 		{
 			spinnerRequestStarted();
 			var req = new mxXmlRequest(this.baseUrl + '/groups/' + group.id + '/projects?per_page=100', null, 'GET');
-			
+
 			this.executeRequest(req, mxUtils.bind(this, function(req)
 			{
 				this.ui.tryAndHandle(mxUtils.bind(this, function()
 				{
-					callback(group, JSON.parse(req.getText()));
+					if (req.getStatus() == 404)
+					{
+						callback(group, []);
+					}
+					else
+					{
+						callback(group, JSON.parse(req.getText()));
+					}
+
 					spinnerRequestFinished();
 				}));
-			}), error);
+			}), error, true);
 		});
 		
 		listGroups(mxUtils.bind(this, function(groups)

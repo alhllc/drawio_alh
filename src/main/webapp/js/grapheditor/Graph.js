@@ -3354,6 +3354,7 @@ Graph.prototype.init = function(container)
 
 		return !this.isSpecialColor(state.style[mxConstants.STYLE_FILLCOLOR]) &&
 			mxUtils.getValue(state.style, 'lineShape', null) != '1' &&
+			shape != 'mxgraph.basic.arc' &&
 			(this.model.isVertex(state.cell) ||
 			shape == 'arrow' || shape == 'pipe' || shape == 'wire' ||
 			shape == 'filledEdge' || shape == 'flexArrow' ||
@@ -6922,28 +6923,37 @@ Graph.prototype.fitPages = function(pageCount, ignoreHeight)
  * 
  * Sets the current visible rectangle of the window in graph coordinates.
  */
-Graph.prototype.fitWindow = function(bounds, border)
+Graph.prototype.fitWindow = function(bounds, border, maxScale, zoomOutOnly)
 {
 	border = (border != null) ? border : 10;
 	
 	var cw = this.container.clientWidth - border;
 	var ch = this.container.clientHeight - border;
 	var scale = Math.floor(20 * Math.min(cw / bounds.width, ch / bounds.height)) / 20;
-	this.zoomTo(scale);
 
-	if (mxUtils.hasScrollbars(this.container))
+	if (maxScale != null)
 	{
-		// Call to zoom above may trigger an asynchronous update of the scrollbars
-		// as setting scrollTop/-Left is executed asynchronously so the code below
-		// ensures that the final state of the scrollbars is as intended.
-		window.setTimeout(mxUtils.bind(this, function()
+		scale = Math.min(scale, maxScale);
+	}
+
+	if (!zoomOutOnly || scale < maxScale)
+	{
+		this.zoomTo(scale);
+
+		if (mxUtils.hasScrollbars(this.container))
 		{
-			var t = this.view.translate;
-			this.container.scrollLeft = (bounds.x + t.x) * this.view.scale -
-				Math.max((cw - bounds.width * this.view.scale) / 2 + border / 2, 0);
-			this.container.scrollTop = (bounds.y + t.y) * this.view.scale -
-				Math.max((ch - bounds.height * this.view.scale) / 2 + border / 2, 0);
-		}), 0);
+			// Call to zoom above may trigger an asynchronous update of the scrollbars
+			// as setting scrollTop/-Left is executed asynchronously so the code below
+			// ensures that the final state of the scrollbars is as intended.
+			window.setTimeout(mxUtils.bind(this, function()
+			{
+				var t = this.view.translate;
+				this.container.scrollLeft = (bounds.x + t.x) * this.view.scale -
+					Math.max((cw - bounds.width * this.view.scale) / 2 + border / 2, 0);
+				this.container.scrollTop = (bounds.y + t.y) * this.view.scale -
+					Math.max((ch - bounds.height * this.view.scale) / 2 + border / 2, 0);
+			}), 0);
+		}
 	}
 };
 
@@ -8881,7 +8891,7 @@ TableLayout.prototype.execute = function(parent)
 	{
 		recurse = (recurse != null) ? recurse : true;
 		var state = this.getState(cell);
-		
+
 		// Forces repaint if jumps change on a valid edge
 		if (state != null && recurse && this.graph.model.isEdge(state.cell) &&
 			state.style != null && state.style[mxConstants.STYLE_CURVED] != 1 &&
@@ -8889,9 +8899,59 @@ TableLayout.prototype.execute = function(parent)
 		{
 			this.graph.cellRenderer.redraw(state, false, this.isRendering());
 		}
-		
+
+		// Updates link overlay before redraw in base call
+		if (state != null && state.invalid && Editor.showLinkIcons)
+		{
+			var link = this.graph.getLinkForCell(cell);
+			var hasLink = link != null && link.length > 0;
+			var hasOverlay = false;
+
+			if (cell.overlays != null)
+			{
+				for (var i = 0; i < cell.overlays.length; i++)
+				{
+					if (cell.overlays[i].isLinkOverlay)
+					{
+						hasOverlay = true;
+						break;
+					}
+				}
+			}
+
+			if (hasLink && !hasOverlay)
+			{
+				var overlay = this.graph.createLinkOverlay(cell);
+
+				if (overlay != null)
+				{
+					if (cell.overlays == null)
+					{
+						cell.overlays = [];
+					}
+
+					cell.overlays.push(overlay);
+				}
+			}
+			else if (!hasLink && hasOverlay)
+			{
+				for (var i = cell.overlays.length - 1; i >= 0; i--)
+				{
+					if (cell.overlays[i].isLinkOverlay)
+					{
+						cell.overlays.splice(i, 1);
+					}
+				}
+
+				if (cell.overlays.length == 0)
+				{
+					cell.overlays = null;
+				}
+			}
+		}
+
 		state = mxGraphViewValidateCellState.apply(this, arguments);
-		
+
 		// Adds to the list of edges that may intersect with later edges
 		if (state != null && recurse && this.graph.model.isEdge(state.cell) &&
 			state.style != null && state.style[mxConstants.STYLE_CURVED] != 1)
@@ -8899,7 +8959,7 @@ TableLayout.prototype.execute = function(parent)
 			// LATER: Reuse jumps for valid edges
 			this.validEdges.push(state);
 		}
-		
+
 		return state;
 	};
 
@@ -11355,7 +11415,27 @@ if (typeof mxVertexHandler !== 'undefined')
 		{
 			this.setAttributeForCell(cell, 'link', link);
 		};
-		
+
+		/**
+		 * Creates a link overlay for the given cell.
+		 */
+		Graph.prototype.createLinkOverlay = function(cell)
+		{
+			var link = this.getLinkForCell(cell);
+
+			if (link != null && link.length > 0)
+			{
+				var overlay = new mxCellOverlay(
+					new mxImage(Editor.lightDarkLinkImage, 16, 16), link,
+					mxConstants.ALIGN_RIGHT, mxConstants.ALIGN_TOP);
+				overlay.isLinkOverlay = true;
+
+				return overlay;
+			}
+
+			return null;
+		};
+
 		/**
 		 * Sets the link for the given cell.
 		 */

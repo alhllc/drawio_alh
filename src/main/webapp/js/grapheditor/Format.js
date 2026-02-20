@@ -5435,7 +5435,7 @@ StyleFormatPanel.prototype.addStroke = function(container)
 	var lineStart = ui.toolbar.addMenu(new Menu(mxUtils.bind(this, function(menu)
 	{
 		if (ss.style.shape == 'connector' || ss.style.shape == 'flexArrow' || ss.style.shape == 'filledEdge' ||
-			ss.style.shape == 'wire' || ss.style.shape == 'pipe')
+			ss.style.shape == 'wire' || ss.style.shape == 'pipe' || ss.style.shape == 'mxgraph.basic.arc')
 		{
 			// Copies other marker
 			var otherMarker = mxUtils.getValue(ss.style, mxConstants.STYLE_ENDARROW, mxConstants.NONE);
@@ -5457,7 +5457,8 @@ StyleFormatPanel.prototype.addStroke = function(container)
 				[mxConstants.NONE, 0], null, null, false, Format.noMarkerImage.src)).setAttribute('title', mxResources.get('none'));
 			
 			if (ss.style.shape == 'connector' || ss.style.shape == 'filledEdge' ||
-				ss.style.shape == 'wire' || ss.style.shape == 'pipe')
+				ss.style.shape == 'wire' || ss.style.shape == 'pipe' ||
+				ss.style.shape == 'mxgraph.basic.arc')
 			{
 				Format.processMenuIcon(this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'],
 					[mxConstants.ARROW_CLASSIC, 1], null, null, false, Format.classicFilledMarkerImage.src));
@@ -5550,7 +5551,7 @@ StyleFormatPanel.prototype.addStroke = function(container)
 	var lineEnd = ui.toolbar.addMenu(new Menu(mxUtils.bind(this, function(menu)
 	{
 		if (ss.style.shape == 'connector' || ss.style.shape == 'flexArrow' || ss.style.shape == 'filledEdge' ||
-			ss.style.shape == 'wire' || ss.style.shape == 'pipe')
+			ss.style.shape == 'wire' || ss.style.shape == 'pipe' || ss.style.shape == 'mxgraph.basic.arc')
 		{
 			// Copies other marker
 			var otherMarker = mxUtils.getValue(ss.style, mxConstants.STYLE_STARTARROW, mxConstants.NONE);
@@ -5572,7 +5573,8 @@ StyleFormatPanel.prototype.addStroke = function(container)
 				[mxConstants.NONE, 0], null, null, false, Format.noMarkerImage.src)).setAttribute('title', mxResources.get('none'));
 			
 			if (ss.style.shape == 'connector' || ss.style.shape == 'filledEdge' ||
-				ss.style.shape == 'wire' || ss.style.shape == 'pipe')
+				ss.style.shape == 'wire' || ss.style.shape == 'pipe' ||
+				ss.style.shape == 'mxgraph.basic.arc')
 			{
 				Format.processMenuIcon(this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'],
 					[mxConstants.ARROW_CLASSIC, 1], null, null, false, Format.classicFilledMarkerImage.src), 'scaleX(-1)');
@@ -5732,7 +5734,8 @@ StyleFormatPanel.prototype.addStroke = function(container)
 	spacer.style.height = '8px';
 	arrowPanel.appendChild(spacer);
 	
-	span = span.cloneNode(false);
+	var spacingLabel = span.cloneNode(false);
+	span = spacingLabel;
 	mxUtils.write(span, mxResources.get('spacing'));
 	arrowPanel.appendChild(span);
 
@@ -5771,6 +5774,19 @@ StyleFormatPanel.prototype.addStroke = function(container)
 	}
 	else if (ss.vertices.length == ss.cells.length)
 	{
+		if (ss.style.shape == 'mxgraph.basic.arc')
+		{
+			edgeStyle.style.visibility = 'hidden';
+			container.appendChild(stylePanel2);
+			spacer.style.display = 'none';
+			spacingLabel.style.display = 'none';
+			startSpacing.style.display = 'none';
+			startSpacing.nextSibling.style.display = 'none';
+			endSpacing.style.display = 'none';
+			endSpacing.nextSibling.style.display = 'none';
+			container.appendChild(arrowPanel);
+		}
+
 		container.appendChild(perimeterPanel);
 	}
 	
@@ -5881,7 +5897,7 @@ StyleFormatPanel.prototype.addStroke = function(container)
 		
 		if (ss.style.shape != 'connector' && ss.style.shape != 'flexArrow' &&
 			ss.style.shape != 'filledEdge' && ss.style.shape != 'wire' &&
-			ss.style.shape != 'pipe')
+			ss.style.shape != 'pipe' && ss.style.shape != 'mxgraph.basic.arc')
 		{
 			mxUtils.setOpacity(lineStart, 30);
 			mxUtils.setOpacity(lineEnd, 30);

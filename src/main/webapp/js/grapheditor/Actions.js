@@ -884,7 +884,7 @@ Actions.prototype.init = function()
 			
 			for (var i = 0; i < cells.length; i++)
 			{
-				state = graph.getView().getState(cells[i]);
+				var state = graph.getView().getState(cells[i]);
 				
 				if (state != null)
 				{
@@ -986,14 +986,7 @@ Actions.prototype.init = function()
 	}, null, null, Editor.ctrlKey + ' - / Alt+Mousewheel');
 	this.addAction('fitWindow', function()
 	{
-		if (graph.pageVisible && graph.isSelectionEmpty())
-		{
-			graph.fitPages();
-		}
-		else
-		{
-			ui.fitDiagramToWindow();
-		}
+		ui.fitDiagramOrPages();
 	}, null, null, Editor.ctrlKey + '+' + Editor.shiftKey + '+H');
 	this.addAction('fitPage', mxUtils.bind(this, function()
 	{
@@ -1789,7 +1782,8 @@ Actions.prototype.init = function()
 				applyClipPath(cell, clipPath, width, height, graph);
 	    	});
 	    	
-	    	ui.showDialog(dlg.container, 300, 390, true, true);
+	    	ui.showDialog(dlg.container, 380, 390, true, true,
+				null, null, null, new mxRectangle(0, 0, 440, 450));
 		}
 	}).isEnabled = isGraphEnabled;
 	action = this.addAction('layers', mxUtils.bind(this, function()
@@ -1858,10 +1852,10 @@ Actions.prototype.init = function()
 			cell != null && cell.geometry != null)
 		{
 			var dlg = new ConnectionPointsDialog(ui, cell);
-	    	ui.showDialog(dlg.container, 350, 450, true, false, function() 
+	    	ui.showDialog(dlg.container, 350, 450, true, false, function()
 			{
 				dlg.destroy();
-			});
+			}, null, null, new mxRectangle(0, 0, 350 + 60, 450 + 60));
 			dlg.init();
 		}
 	}, null, null,  Editor.altKey + '+' + Editor.shiftKey + '+Q').isEnabled = isGraphEnabled;
@@ -1953,7 +1947,8 @@ Action.prototype.setEnabled = function(value)
 	if (this.enabled != value)
 	{
 		this.enabled = value;
-		this.fireEvent(new mxEventObject('stateChanged'));
+		this.fireEvent(new mxEventObject('stateChanged',
+			'attribute', 'enabled'));
 	}
 };
 
@@ -1963,6 +1958,27 @@ Action.prototype.setEnabled = function(value)
 Action.prototype.isEnabled = function()
 {
 	return this.enabled;
+};
+
+/**
+ * Sets the visible state of the action and fires a stateChanged event.
+ */
+Action.prototype.setVisible = function(value)
+{
+	if (this.visible != value)
+	{
+		this.visible = value;
+		this.fireEvent(new mxEventObject('stateChanged',
+			'attribute', 'visible'));
+	}
+};
+
+/**
+ * Sets the enabled state of the action and fires a stateChanged event.
+ */
+Action.prototype.isVisible = function()
+{
+	return this.visible;
 };
 
 /**

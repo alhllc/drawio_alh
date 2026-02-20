@@ -586,7 +586,7 @@ Toolbar.prototype.addSeparator = function(c, minWidth)
 /**
  * Adds given action item
  */
-Toolbar.prototype.addItems = function(keys, c, ignoreDisabled, icons, minWidth)
+Toolbar.prototype.addItems = function(keys, c, noListeners, icons, minWidth)
 {
 	var items = [];
 	
@@ -601,7 +601,7 @@ Toolbar.prototype.addItems = function(keys, c, ignoreDisabled, icons, minWidth)
 		else
 		{
 			var elt = this.addItem((icons != null) ?
-				icons[i] : null, key, c, ignoreDisabled);
+				icons[i] : null, key, c, noListeners);
 
 			if (elt != null)
 			{
@@ -621,7 +621,7 @@ Toolbar.prototype.addItems = function(keys, c, ignoreDisabled, icons, minWidth)
 /**
  * Adds given action item
  */
-Toolbar.prototype.addItem = function(sprite, key, container)
+Toolbar.prototype.addItem = function(sprite, key, container, noListeners)
 {
 	var action = this.editorUi.actions.get(key);
 	var elt = null;
@@ -631,21 +631,20 @@ Toolbar.prototype.addItem = function(sprite, key, container)
 		elt = this.editorUi.addButton(sprite, '', action.funct,
 			(container != null) ? container : this.container);
 
-		this.editorUi.dependsOnLanguage(mxUtils.bind(this, function()
+		var stateChangedListener = mxUtils.bind(this, function(sender, evt)
 		{
-			var tooltip = action.getTitle();
-		
-			if (action.shortcut != null)
+			if (evt != null && evt.getProperty('attribute') == 'visible')
 			{
-				tooltip += ' (' + action.shortcut + ')';
+				if (!action.isVisible())
+				{
+					elt.style.display = 'none';
+				}
+				else
+				{
+					elt.style.display = '';
+				}
 			}
-			
-			elt.setAttribute('title', tooltip);
-		}));
-
-		var updateEnabledState = mxUtils.bind(this, function()
-		{
-			if (action.enabled)
+			else if (action.enabled)
 			{
 				elt.removeAttribute('disabled');
 			}
@@ -655,8 +654,24 @@ Toolbar.prototype.addItem = function(sprite, key, container)
 			}
 		});
 
-		action.addListener('stateChanged', updateEnabledState);
-		updateEnabledState();
+		if (!noListeners)
+		{
+			this.editorUi.dependsOnLanguage(mxUtils.bind(this, function()
+			{
+				var tooltip = action.getTitle();
+			
+				if (action.shortcut != null)
+				{
+					tooltip += ' (' + action.shortcut + ')';
+				}
+				
+				elt.setAttribute('title', tooltip);
+			}));
+
+			action.addListener('stateChanged', stateChangedListener);
+		}
+		
+		stateChangedListener();
 	}
 	
 	return elt;

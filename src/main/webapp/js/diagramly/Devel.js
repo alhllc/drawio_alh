@@ -253,6 +253,7 @@ if (!window.DRAWIO_PUBLIC_BUILD)
 mxscript(drawDevUrl + 'js/mermaid/mermaid2drawio.js');	
 
 // Vsdx/vssx support
+mxscript(drawDevUrl + 'js/diagramly/emf/emf-svg.js');
 mxscript(drawDevUrl + 'js/diagramly/vsdx/mxVsdxCanvas2D.js');
 mxscript(drawDevUrl + 'js/diagramly/vsdx/bmpDecoder.js');
 mxscript(drawDevUrl + 'js/diagramly/vsdx/importer.js');

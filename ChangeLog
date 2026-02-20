@@ -1,3 +1,51 @@
+20-FEB-2026: 29.5.1
+
+- Updates to emf importer
+
+19-FEB-2026: 29.5.0
+
+- Initial draft for link icon
+- Uses validateCellState for update of link icon
+- Adds enableExportUrl configuration switch [jgraph/drawio#4336] [jgraph/drawio#5431]
+- Fix emoji and supplementary Unicode characters corrupted after save/reload
+- Bezier curve falls back to quad for cases it can't handle [jgraph/drawio-desktop#2333]
+- Missing var in actions.js [jgraph/drawio#5457]
+- Fixes rename and saveAs for StorageFiles
+- New emf converter
+
+14-FEB-2026: 29.4.0
+
+- Handles 404 in GitLab group iteration [jgraph/drawio#4528]
+- Adds visible modifiers and events for actions
+- Fixes ignored parameter in addItem
+- Fixes ignored pv and grid URL parameters for create hash with xml
+- Sets maximum initial zoom for create hash to 1.2
+- Makes connection points dialog resizable [drawio/discussions/5442]
+- Adds resizing for image crop dialog [drawio/discussions/5203], handles overflows [drawio/discussions/5478]
+- Adds fitDiagramOnLoad switch [jgraph/drawio#5415]
+- Fixes realtimeStateChanged triggers notification repaint
+- Adds message type for create hash property
+- Fixes grid jump while zoom [jgraph/drawio#1440]
+- Uses current production wheelZoomDelay
+- Adds markers for arc shape [jgraph/drawio#3639]
+- Removes fill and gradient option for arc shape
+
+06-FEB-2026: 29.3.8
+
+- Improves create hash handling
+- Handles overflows in error dialog
+- Conf Cloud: Removed export to URL option [DID-17708]
+- Adds debug output in  executeCreateHash
+
+03-FEB-2026: 29.3.7
+
+- Adds Claude 4.5 Opus for local LLMS and removes whitespace from response XML
+- Shows AI button in Conf and Jira toolbar if not disabled
+- Adds scrollbars for overflow content in Generate window
+- Bump qs, body-parser and express in /etc/centralizedLogging/GCP
+- Adds XML type for create hash property
+- Fits create hash property diagram to window
+
 27-JAN-2026: 29.3.6
 
 - Adds delete all pages option

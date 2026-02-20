@@ -3890,14 +3890,18 @@ EditorUi.prototype.initCanvas = function()
 					if (source == graph.container)
 					{
 						graph.tooltipHandler.hideTooltip();
-						cursorPosition = (cx != null && cy!= null) ? new mxPoint(cx, cy) :
+						var mousePos = (cx != null && cy != null) ? new mxPoint(cx, cy) :
 							new mxPoint(mxEvent.getClientX(evt), mxEvent.getClientY(evt));
+						var prevCursorPosition = (cursorPosition != null) ?
+							new mxPoint(cursorPosition.x, cursorPosition.y) : null;
+						var prevFactor = graph.cumulativeZoomFactor;
+						cursorPosition = mousePos;
 						forcedZoom = force;
 						var factor = graph.zoomFactor;
 						var delay = null;
 
 						// Slower zoom for pinch gesture on trackpad with max delta to
-						// filter out mouse wheel events in Brave browser for Windows 
+						// filter out mouse wheel events in Brave browser for Windows
 						if (evt.ctrlKey && evt.deltaY != null && Math.abs(evt.deltaY) < 40 &&
 							Math.round(evt.deltaY) != evt.deltaY)
 						{
@@ -3909,10 +3913,61 @@ EditorUi.prototype.initCanvas = function()
 							factor = 1 + (Math.max(1, Math.abs(evt.movementY)) / 20) * (factor - 1);
 							delay = -1;
 						}
-						
+
 						graph.lazyZoom(up, null, delay, factor);
+
+						// Computes combined zoom origin when mouse moves during
+						// a zoom sequence to avoid viewport jump at the final DOM
+						// update. Reapplies CSS transform-origin with the corrected
+						// origin that represents the single equivalent zoom point
+						// for all accumulated steps.
+						if (prevCursorPosition != null && prevFactor != 1 &&
+							graph.isFastZoomEnabled() && graph.scrollbars)
+						{
+							var newFactor = graph.cumulativeZoomFactor;
+							var stepFactor = newFactor / prevFactor;
+							var denom = 1 - newFactor;
+
+							if (Math.abs(denom) > 0.001)
+							{
+								cursorPosition = new mxPoint(
+									(mousePos.x * (1 - stepFactor) +
+										stepFactor * prevCursorPosition.x *
+										(1 - prevFactor)) / denom,
+									(mousePos.y * (1 - stepFactor) +
+										stepFactor * prevCursorPosition.y *
+										(1 - prevFactor)) / denom);
+
+								var ox = cursorPosition.x + graph.container.scrollLeft -
+									graph.container.offsetLeft;
+								var oy = cursorPosition.y + graph.container.scrollTop -
+									graph.container.offsetTop;
+								mainGroup.style.transformOrigin = ox + 'px ' + oy + 'px';
+								bgGroup.style.transformOrigin = ox + 'px ' + oy + 'px';
+
+								if (graph.view.backgroundPageShape != null &&
+									graph.view.backgroundPageShape.node != null)
+								{
+									var page = graph.view.backgroundPageShape.node;
+
+									mxUtils.setPrefixedStyle(page.style, 'transform-origin',
+										(cursorPosition.x + graph.container.scrollLeft -
+											page.offsetLeft - graph.container.offsetLeft) + 'px ' +
+										(cursorPosition.y + graph.container.scrollTop -
+											page.offsetTop - graph.container.offsetTop) + 'px');
+								}
+								else
+								{
+									var f = Math.round((Math.round(graph.view.scale *
+										newFactor * 100) / 100) * mult) / (mult *
+										graph.view.scale);
+									graph.view.validateBackgroundStyles(f, ox, oy);
+								}
+							}
+						}
+
 						mxEvent.consume(evt);
-				
+
 						return false;
 					}
 					
@@ -4422,11 +4477,30 @@ EditorUi.prototype.setScrollbars = function(value)
 };
 
 /**
+ * Function: fitDiagramOrPages
+ * 
+ * Zooms the diagram to fit into the window.
+ */
+EditorUi.prototype.fitDiagramOrPages = function(maxScale, borders, ignorePages)
+{
+	var graph = this.editor.graph;
+
+	if (graph.pageVisible && graph.isSelectionEmpty() && !ignorePages)
+	{
+		graph.fitPages(maxScale);
+	}
+	else
+	{
+		this.fitDiagramToWindow(maxScale, borders, ignorePages);
+	}
+};
+
+/**
  * Function: fitDiagramToWindow
  * 
  * Zooms the diagram to fit into the window.
  */
-EditorUi.prototype.fitDiagramToWindow = function()
+EditorUi.prototype.fitDiagramToWindow = function(maxScale, borders, zoomOutOnly)
 {
 	var graph = this.editor.graph;
 	var bounds = (graph.isSelectionEmpty()) ?
@@ -4454,7 +4528,8 @@ EditorUi.prototype.fitDiagramToWindow = function()
 	}
 	else
 	{
-		var b = Editor.fitWindowBorders;
+		var b = (borders != null) ? borders :
+			Editor.fitWindowBorders;
 		
 		if (b != null)
 		{
@@ -4464,7 +4539,7 @@ EditorUi.prototype.fitDiagramToWindow = function()
 			bounds.height += b.height + b.y;
 		}
 		
-		graph.fitWindow(bounds);
+		graph.fitWindow(bounds, null, maxScale, zoomOutOnly);
 	}
 };
 

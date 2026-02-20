@@ -177,7 +177,10 @@ StorageFile.prototype.getDescriptorEtag = function(desc)
  */
 StorageFile.prototype.save = function(revision, success, error)
 {
-	this.saveAs(this.getTitle(), success, error);
+	DrawioFile.prototype.save.apply(this, [false, mxUtils.bind(this, function()
+	{
+		this.saveFile(this.getTitle(), false, success, error);
+	}), error]);
 };
 
 /**
@@ -188,10 +191,7 @@ StorageFile.prototype.save = function(revision, success, error)
  */
 StorageFile.prototype.saveAs = function(title, success, error)
 {
-	DrawioFile.prototype.save.apply(this, [false, mxUtils.bind(this, function()
-	{
-		this.saveFile(title, false, success, error);
-	}), error]);
+	this.rename(title, success, error);
 };
 
 /**
@@ -340,11 +340,13 @@ StorageFile.prototype.saveFile = function(title, revision, success, error, retry
 				{
 					this.getLatestVersion(mxUtils.bind(this, function(file)
 					{
+						EditorUi.debug('StorageFile.saveFile', [this], 'title', title,
+							'data', data, 'latestVersion', [file], 'descriptor',
+							this.getDescriptor(), 'latestVersionDescriptor',
+							file.getDescriptor());
+						
 						if (file.getDescriptor() != this.getDescriptor())
 						{
-							EditorUi.debug('StorageFile.saveFile',
-								[this], 'conflict', [file]);
-
 							this.mergeFile(file, mxUtils.bind(this, function()
 							{
 								if (retry >= this.maxRetries ||
@@ -409,6 +411,8 @@ StorageFile.prototype.retrySave = function(fn)
  */
 StorageFile.prototype.writeFile = function(title, success, error)
 {
+	EditorUi.debug('StorageFile.writeFile', [this], 'title', title);
+
 	if (this.isRenamable())
 	{
 		this.title = title;
@@ -430,34 +434,34 @@ StorageFile.prototype.writeFile = function(title, success, error)
 		this.setShadowModified(false);
 
 		this.ui.setDatabaseItem(null, [{
-				title: this.title,
-				size: data.length,
-				lastModified: Date.now(),
-				type: this.type
-			}, {
-				title: this.title,
-				data: data
-			}], saveDone, mxUtils.bind(this, function()
+			title: this.title,
+			size: data.length,
+			lastModified: Date.now(),
+			type: this.type
+		}, {
+			title: this.title,
+			data: data
+		}], saveDone, mxUtils.bind(this, function()
+		{
+			if (this.ui.database == null) //fallback to localstorage
 			{
-				if (this.ui.database == null) //fallback to localstorage
+				try
 				{
-					try
+					this.ui.setLocalData(this.title, data, saveDone);
+				}
+				catch (e)
+				{
+					if (error != null)
 					{
-						this.ui.setLocalData(this.title, data, saveDone);
-					}
-					catch (e)
-					{
-						if (error != null)
-						{
-							error(e);
-						}
+						error(e);
 					}
 				}
-				else if (error != null)
-				{
-					error();
-				}
-			}), ['filesInfo', 'files']);
+			}
+			else if (error != null)
+			{
+				error();
+			}
+		}), ['filesInfo', 'files']);
 	}
 	catch (e)
 	{
@@ -480,32 +484,14 @@ StorageFile.prototype.rename = function(title, success, error)
 
 	if (oldTitle != title)
 	{
-		StorageFile.getFileInfo(this.ui, title, mxUtils.bind(this, function(data)
+		EditorUi.debug('StorageFile.rename', [this], 'oldTitle', oldTitle, 'newTitle', title);
+
+		this.saveFile(title, false, mxUtils.bind(this, function()
 		{
-			var fn = mxUtils.bind(this, function()
+			StorageFile.deleteFile(this.ui, oldTitle, mxUtils.bind(this, function()
 			{
-				this.title = title;
-				
-				// Updates the data if the extension has changed
-				if (!this.hasSameExtension(oldTitle, title))
-				{
-					this.setData(this.ui.getFileData());
-				}
-				
-				this.saveFile(title, false, mxUtils.bind(this, function()
-				{
-					this.ui.removeLocalData(oldTitle, success);
-				}), error);
-			});
-			
-			if (data != null)
-			{
-				this.ui.confirm(mxResources.get('replaceIt', [title]), fn, error);
-			}
-			else
-			{
-				fn();
-			}
+				this.ui.removeLocalData(oldTitle, success);
+			}, error));
 		}), error);
 	}
 	else

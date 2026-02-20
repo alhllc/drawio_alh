@@ -154,15 +154,15 @@ mxPolyline.prototype.paintCurvedLine = function(c, pts)
 mxPolyline.prototype.paintBezierLine = function(c, pts)
 {
 	var n = pts.length;
-	
+
 	if (n < 2)
 	{
 		return;
 	}
-	
+
 	c.begin();
 	c.moveTo(pts[0].x, pts[0].y);
-	
+
 	// Handle simple 2-point case (straight line)
 	if (n == 2)
 	{
@@ -170,26 +170,32 @@ mxPolyline.prototype.paintBezierLine = function(c, pts)
 		c.stroke();
 		return;
 	}
-	
-	// Process cubic bezier segments (3 points each: cp1, cp2, anchor)
-	var i = 1;
-	
-	while (i + 2 < n)
+
+	// If points fit 3n+1 pattern, use them directly as cubic bezier control points
+	if ((n - 1) % 3 == 0)
 	{
-		var cp1 = pts[i];
-		var cp2 = pts[i + 1];
-		var end = pts[i + 2];
-		
-		c.curveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
-		i += 3;
+		for (var i = 1; i + 2 < n; i += 3)
+		{
+			c.curveTo(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y,
+				pts[i + 2].x, pts[i + 2].y);
+		}
 	}
-	
-	// Handle any remaining points (fallback to lineTo)
-	while (i < n)
+	else
 	{
-		c.lineTo(pts[i].x, pts[i].y);
-		i++;
+		// Points are through-points (e.g. from edge style routing),
+		// use curved line interpolation
+		for (var i = 1; i < n - 2; i++)
+		{
+			var p0 = pts[i];
+			var p1 = pts[i + 1];
+			var ix = (p0.x + p1.x) / 2;
+			var iy = (p0.y + p1.y) / 2;
+
+			c.quadTo(p0.x, p0.y, ix, iy);
+		}
+
+		c.quadTo(pts[n - 2].x, pts[n - 2].y, pts[n - 1].x, pts[n - 1].y);
 	}
-	
+
 	c.stroke();
 };

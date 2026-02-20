@@ -891,7 +891,11 @@
 		action.setToggleAction(true);
 		action.setSelectedCallback(mxUtils.bind(this, function() { return this.tagsWindow != null && this.tagsWindow.window.isVisible(); }));
 		
-		if (Editor.enableAi &&
+		// Shown on aj/ac domains
+		if ((Editor.enableAi || ((Editor.config == null ||
+			Editor.config.enableAi == null) &&
+			(/ac\.draw\.io$/.test(window.location.hostname)) ||
+			(/aj\.draw\.io$/.test(window.location.hostname)))) &&
 			!editorUi.isOffline() &&
 			!EditorUi.isElectronApp && 
 			Editor.aiActions.length > 0 &&
@@ -902,13 +906,21 @@
 		{
 			var generateAction = editorUi.actions.put('generate', new Action('generate', function()
 			{
-				if (editorUi.chatWindow != null)
+				if (!Editor.enableAi)
 				{
-					editorUi.chatWindow.window.setVisible(!editorUi.chatWindow.window.isVisible());
+					editorUi.alert('AI features require admin approval' +
+						'<br><a href="https://www.drawio.com/doc/faq/confluence-ai-options" target="_blank">Learn more</a>');
 				}
 				else
 				{
-					editorUi.openGenerateDialog('');
+					if (editorUi.chatWindow != null)
+					{
+						editorUi.chatWindow.window.setVisible(!editorUi.chatWindow.window.isVisible());
+					}
+					else
+					{
+						editorUi.openGenerateDialog('');
+					}
 				}
 			}));
 
@@ -924,7 +936,7 @@
 				return editorUi.chatWindow != null && editorUi.chatWindow.window.isVisible();
 			});
 		}
-
+		
 		action = editorUi.actions.addAction('findReplace', mxUtils.bind(this, function(arg1, evt)
 		{
 			editorUi.showSearchWindow(graph.isEnabled() && (evt == null || !mxEvent.isShiftDown(evt)));
@@ -2789,7 +2801,14 @@
 				this.addMenuItems(menu, ['exportVsdx'], parent);
 			}
 
-			this.addMenuItems(menu, ['-', 'exportHtml', 'exportXml', 'exportUrl'], parent);
+			var exportItems = ['-', 'exportHtml', 'exportXml'];
+
+			if (Editor.enableExportUrl)
+			{
+				exportItems.push('exportUrl');
+			}
+			
+			this.addMenuItems(menu, exportItems, parent);
 
 			if (!editorUi.isOffline())
 			{

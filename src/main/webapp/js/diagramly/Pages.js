@@ -1671,6 +1671,30 @@ EditorUi.prototype.updateTabContainer = function()
 		{
 			this.checkTabScrollerOverflow();
 		}));
+
+		var ghLink = document.createElement('a');
+		ghLink.href = 'https://github.com/jgraph/drawio';
+		ghLink.target = '_blank';
+		ghLink.style.cssText = 'margin-left:auto;display:flex;align-items:center;' +
+			'padding:0 8px;opacity:0.5;flex-shrink:0';
+		var ghImg = document.createElement('img');
+		ghImg.src = IMAGE_PATH + (Editor.isDarkMode() ?
+			'/github-logo-white.svg' : '/github-logo.svg');
+		ghImg.style.cssText = 'width:18px;height:18px';
+		ghImg.setAttribute('title', 'jgraph/drawio');
+		ghLink.appendChild(ghImg);
+
+		mxEvent.addListener(ghLink, 'mouseenter', function()
+		{
+			ghLink.style.opacity = '1';
+		});
+
+		mxEvent.addListener(ghLink, 'mouseleave', function()
+		{
+			ghLink.style.opacity = '0.5';
+		});
+
+		this.tabContainer.appendChild(ghLink);
 	}
 };
 

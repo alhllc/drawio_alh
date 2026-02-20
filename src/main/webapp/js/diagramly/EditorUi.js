@@ -2971,11 +2971,12 @@
 										{
 											graph.removeCellOverlays(cell);
 										}
-										
+
 										if (desc != null)
 										{
 											graph.addCellOverlay(cell, createOverlay(desc));
 										}
+
 									}
 								}
 								catch (e)
@@ -8837,8 +8838,15 @@
 						}
 						else
 						{
-							handleError({message: this.getServiceName() != 'draw.io'? mxResources.get('vsdNoConfig') :
-								mxResources.get('serviceUnavailableOrBlocked')});
+							if (/(\.vss|\.vsx)$/i.test(filename))
+							{
+								handleError({message: mxResources.get('tryVssDraw', ['https://vss.draw.io'])});
+							}
+							else
+							{
+								handleError({message: this.getServiceName() != 'draw.io'? mxResources.get('vsdNoConfig') :
+									mxResources.get('serviceUnavailableOrBlocked')});
+							}
 						}
 					}
 					else if (timeout.clear())
@@ -12073,11 +12081,11 @@
 			var showRuler = Editor.canvasSupported && document.documentMode != 9 &&
 				(urlParams['ruler'] == '1' || mxSettings.isRulerOn()) &&
 				(!this.editor.isChromelessView() || this.editor.editable);
-			
+
 			this.ruler = (showRuler) ? new mxDualRuler(this, view.unit) : null;
 			this.refresh();
 		}
-		
+
 		// Adds an element to edit the style in the footer in test mode
 		if (urlParams['styledev'] == '1')
 		{
@@ -12358,7 +12366,7 @@
 
 		this.addListener('realtimeStateChanged', mxUtils.bind(this, function()
 		{
-			this.updateButtonContainer();
+			this.updateButtonContainer(true);
 		}));
 		
 		this.addListener('darkModeChanged', function()
@@ -18392,7 +18400,7 @@
 	/**
 	 * Loads orgchart layouts and executes the given function.
 	 */
-	EditorUi.prototype.loadOrgChartLayouts = function(fn)
+	EditorUi.prototype.loadOrgChartLayouts = function(fn, noSpinner)
 	{
 		this.createTimeout(null, mxUtils.bind(this, function(timeout)
 		{
@@ -18420,7 +18428,7 @@
 
 			if (typeof mxOrgChartLayout === 'undefined' && !this.loadingOrgChart && !this.isOffline(true))
 			{
-				if (this.spinner.spin(document.body, mxResources.get('loading')))
+				if (noSpinner || this.spinner.spin(document.body, mxResources.get('loading')))
 				{
 					this.loadingOrgChart = true;
 
@@ -18454,12 +18462,12 @@
 	/**
 	 *
 	 */
-	EditorUi.prototype.importCsv = function(text, done, graph)
+	EditorUi.prototype.importCsv = function(text, done, graph, noSpinner)
 	{
 		this.loadOrgChartLayouts(mxUtils.bind(this, function()
 		{
 			this.doImportCsv(text, done, graph);
-		}));
+		}), noSpinner);
 	};
 
 	/**

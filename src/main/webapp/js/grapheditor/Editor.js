@@ -208,6 +208,7 @@ Editor.removeFormatImage = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3
 Editor.textFormatImage = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjMDAwMDAwIj48cGF0aCBkPSJNMjAwLTIwMHYtODBoNTYwdjgwSDIwMFptNzYtMTYwIDE2NC00NDBoODBsMTY0IDQ0MGgtNzZsLTM4LTExMkgzOTJsLTQwIDExMmgtNzZabTEzOC0xNzZoMTMybC02NC0xODJoLTRsLTY0IDE4MloiLz48L3N2Zz4=';
 Editor.codeImage = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjMDAwMDAwIj48cGF0aCBkPSJNMzIwLTI0MCA4MC00ODBsMjQwLTI0MCA1NyA1Ny0xODQgMTg0IDE4MyAxODMtNTYgNTZabTMyMCAwLTU3LTU3IDE4NC0xODQtMTgzLTE4MyA1Ni01NiAyNDAgMjQwLTI0MCAyNDBaIi8+PC9zdmc+';
 Editor.linkImage = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjMDAwMDAwIj48cGF0aCBkPSJNNDQwLTI4MEgyODBxLTgzIDAtMTQxLjUtNTguNVQ4MC00ODBxMC04MyA1OC41LTE0MS41VDI4MC02ODBoMTYwdjgwSDI4MHEtNTAgMC04NSAzNXQtMzUgODVxMCA1MCAzNSA4NXQ4NSAzNWgxNjB2ODBaTTMyMC00NDB2LTgwaDMyMHY4MEgzMjBabTIwMCAxNjB2LTgwaDE2MHE1MCAwIDg1LTM1dDM1LTg1cTAtNTAtMzUtODV0LTg1LTM1SDUyMHYtODBoMTYwcTgzIDAgMTQxLjUgNTguNVQ4ODAtNDgwcTAgODMtNTguNSAxNDEuNVQ2ODAtMjgwSDUyMFoiLz48L3N2Zz4=';
+Editor.lightDarkLinkImage = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBzdHlsZT0iY29sb3Itc2NoZW1lOmxpZ2h0IGRhcms7IiBmaWxsPSJsaWdodC1kYXJrKCMwMDAwMDAsI2ZmZmZmZikiPjxwYXRoIGQ9Ik00NDAtMjgwSDI4MHEtODMgMC0xNDEuNS01OC41VDgwLTQ4MHEwLTgzIDU4LjUtMTQxLjVUMjgwLTY4MGgxNjB2ODBIMjgwcS01MCAwLTg1IDM1dC0zNSA4NXEwIDUwIDM1IDg1dDg1IDM1aDE2MHY4MFpNMzIwLTQ0MHYtODBoMzIwdjgwSDMyMFptMjAwIDE2MHYtODBoMTYwcTUwIDAgODUtMzV0MzUtODVxMC01MC0zNS04NXQtODUtMzVINTIwdi04MGgxNjBxODMgMCAxNDEuNSA1OC41VDg4MC00ODBxMCA4My01OC41IDE0MS41VDY4MC0yODBINTIwWiIvPjwvc3ZnPg==';
 Editor.imageImage = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjMDAwMDAwIj48cGF0aCBkPSJNMjAwLTEyMHEtMzMgMC01Ni41LTIzLjVUMTIwLTIwMHYtNTYwcTAtMzMgMjMuNS01Ni41VDIwMC04NDBoNTYwcTMzIDAgNTYuNSAyMy41VDg0MC03NjB2NTYwcTAgMzMtMjMuNSA1Ni41VDc2MC0xMjBIMjAwWm0wLTgwaDU2MHYtNTYwSDIwMHY1NjBabTQwLTgwaDQ4MEw1NzAtNDgwIDQ1MC0zMjBsLTkwLTEyMC0xMjAgMTYwWm0tNDAgODB2LTU2MCA1NjBaIi8+PC9zdmc+';
 Editor.horizontalRuleImage = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjMDAwMDAwIj48cGF0aCBkPSJNMTYwLTQ0MHYtODBoNjQwdjgwSDE2MFoiLz48L3N2Zz4=';
 Editor.tableImage = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjMDAwMDAwIj48cGF0aCBkPSJNMjAwLTEyMHEtMzMgMC01Ni41LTIzLjVUMTIwLTIwMHYtNTYwcTAtMzMgMjMuNS01Ni41VDIwMC04NDBoNTYwcTMzIDAgNTYuNSAyMy41VDg0MC03NjB2NTYwcTAgMzMtMjMuNSA1Ni41VDc2MC0xMjBIMjAwWm0yNDAtMjQwSDIwMHYxNjBoMjQwdi0xNjBabTgwIDB2MTYwaDI0MHYtMTYwSDUyMFptLTgwLTgwdi0xNjBIMjAwdjE2MGgyNDBabTgwIDBoMjQwdi0xNjBINTIwdjE2MFpNMjAwLTY4MGg1NjB2LTgwSDIwMHY4MFoiLz48L3N2Zz4=';
@@ -1654,6 +1655,9 @@ var ErrorDialog = function(editorUi, title, message, buttonText, fn, retry, butt
 	
 	var div = document.createElement('div');
 	div.style.textAlign = 'center';
+	div.style.flexDirection = 'column';
+	div.style.maxHeight = '100%';
+	div.style.display = 'flex';
 
 	if (title != null)
 	{
@@ -1668,6 +1672,7 @@ var ErrorDialog = function(editorUi, title, message, buttonText, fn, retry, butt
 		hd.style.whiteSpace = 'nowrap';
 		hd.style.textOverflow = 'ellipsis';
 		hd.style.overflow = 'hidden';
+		hd.style.flexShrink = '0';
 		mxUtils.write(hd, title);
 		hd.setAttribute('title', title);
 		div.appendChild(hd);
@@ -1676,6 +1681,8 @@ var ErrorDialog = function(editorUi, title, message, buttonText, fn, retry, butt
 	var p2 = document.createElement('div');
 	p2.style.lineHeight = '1.2em';
 	p2.style.padding = '6px';
+	p2.style.flexGrow = '1';
+	p2.style.overflowY = 'auto';
 	
 	if (typeof message === 'string')
 	{

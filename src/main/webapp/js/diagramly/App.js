@@ -1798,6 +1798,15 @@ App.prototype.init = function()
 				{
 					this.showDownloadDesktopBanner();
 				}
+
+				// Fits diagram to window
+				if (Editor.fitDiagramOnLoad)
+				{
+					var b = (urlParams['border'] != null) ?
+						parseInt(urlParams['border']) : 10;
+					var bds = new mxRectangle(b, b, b, b);
+					this.fitDiagramOrPages(1, bds, true);
+				}
 			}));
 		}
 		
@@ -3439,8 +3448,7 @@ App.prototype.start = function()
 				});
 			}
 			
-			if ((window.location.hash == null || window.location.hash.length <= 1 ||
-				window.location.hash.substring(0, 8) == '#create=') &&
+			if ((window.location.hash == null || window.location.hash.length <= 1) &&
 				value.length > 0 && this.spinner.spin(document.body, mxResources.get('loading')))
 			{
 				var reconnect = mxUtils.bind(this, function()
@@ -3518,106 +3526,35 @@ App.prototype.start = function()
 				
 				if (value.substring(0, 7) != 'http://' && value.substring(0, 8) != 'https://')
 				{
-					if (value.charAt(0) == '{')
+					try
 					{
-						this.spinner.stop();
-						value = JSON.parse(value);
-						
-						var createDiagram = mxUtils.bind(this, function(xml)
+						if (value.charAt(0) == '{')
 						{
-							this.spinner.stop();
-							this.createFile((value.filename != null) ?
-								value.filename : this.defaultFilename,
-								xml, null, null, mxUtils.bind(this, function()
+							this.executeCreateObject(JSON.parse(decodeURIComponent(value)),
+								mxUtils.bind(this, function()
 								{
-									if (!this.editor.chromeless || this.editor.editable)
-									{
-										this.actions.get('fitWindow').funct();
-									}
-
 									window.history.replaceState(null, null,
 										window.location.pathname +
 										this.getSearch(['create']));
-									window.location.hash = 'R' + Graph.compress(xml);
-								}), true, null, true);
-						});
-
-						var data = value.data;
-
-						if (value.compressed)
-						{
-							data = Graph.decompress(data);
-						}
-
-						if (value.type == 'mermaid' && this.spinner.spin(
-							document.body, mxResources.get('loading')))
-						{
-							if (window.isMermaidEnabled)
-							{
-								this.parseMermaidDiagram(data, null, mxUtils.bind(this, function(xml)
-								{
-									createDiagram(xml);
-								}), mxUtils.bind(this, function(e)
-								{
-									this.handleError(e);
-								}), null, true);
-							}
-							else
-							{
-								this.handleError(
-									{message: mxResources.get('serviceUnavailableOrBlocked')},
-									mxResources.get('errorLoadingFile'));
-							}
-						}
-						else if (value.type == 'generate' && this.spinner.spin(
-							document.body, mxResources.get('generate') +
-							' \''+ data + '\''))
-						{
-							this.generateOpenAiMermaidDiagram(data, function(xml)
-							{
-								createDiagram(xml);
-							}, mxUtils.bind(this, function(e)
-							{
-								this.handleError(e, mxResources.get('errorLoadingFile'));
-							}), true, {complexity: 'high'});
-						}
-						else if (value.type == 'csv')
-						{
-							var graph = this.createTemporaryGraph(this.editor.graph.getStylesheet());
-							
-							this.importCsv(data, mxUtils.bind(this, function()
-							{
-								var codec = new mxCodec();
-								createDiagram(mxUtils.getXml(
-									codec.encode(graph.getModel())));
-							}), graph);
+								}));
 						}
 						else
 						{
-							this.handleError(
-								{message: mxResources.get('invalidCallFnNotFound', [value.type])},
-								mxResources.get('errorLoadingFile'));
-						}
-					}
-					else
-					{
-						// Cross-domain window access is not allowed in FF, so if we
-						// were opened from another domain then this will fail.
-						try
-						{
+							// Cross-domain window access is not allowed in FF, so if we
+							// were opened from another domain then this will fail.
 							if (window.opener != null && window.opener[value] != null)
 							{
 								showCreateDialog(window.opener[value]);
 							}
 							else
 							{
-								this.handleError(null, mxResources.get('errorLoadingFile'));
+								throw new Error(mxResources.get('invalidCallFnNotFound', ['window.opener.' + value]));
 							}
 						}
-						catch (e)
-						{
-							this.handleError(e, mxResources.get('errorLoadingFile'));
-						}
+					}
+					catch (e)
+					{
+						this.handleError(e, mxResources.get('errorLoadingFile'));
 					}
 				}
 				else
@@ -3691,6 +3628,121 @@ App.prototype.start = function()
 	catch (e)
 	{
 		this.handleError(e);
+	}
+};
+
+/**
+ * Translates this point by the given vector.
+ * 
+ * @param {number} dx X-coordinate of the translation.
+ * @param {number} dy Y-coordinate of the translation.
+ */
+App.prototype.executeCreateObject = function(value, done)
+{
+	try
+	{
+		EditorUi.debug('App.executeCreateObject',
+			[this], 'value', [value]);
+		
+		var createDiagram = mxUtils.bind(this, function(xml)
+		{
+			this.spinner.stop();
+
+			this.createFile((value.filename != null) ?
+				value.filename : this.defaultFilename,
+				xml, null, null, mxUtils.bind(this, function()
+				{
+					if (urlParams['pv'] != null)
+					{
+						this.setPageVisible(urlParams['pv'] == '1');
+					}
+
+					if (urlParams['grid'] != null)
+					{
+						this.editor.graph.setGridEnabled(
+							urlParams['grid'] == '1');
+					}
+
+					// Fits diagram to window
+					var b = (urlParams['border'] != null) ?
+						parseInt(urlParams['border']) : 10;
+					this.fitDiagramOrPages(1.2, new mxRectangle(b, b, b, b));
+
+					// Needs to go before upate of hash if
+					// it replaces the history state
+					if (done != null)
+					{
+						done();
+					}
+					
+					// Sets create value with compressed XML
+					value.type = 'xml';
+					value.compressed = true;
+					value.data = Graph.compress(xml);
+					window.location.hash = 'create=' +
+						encodeURIComponent(JSON.stringify(value));
+				}), true, null, true);
+		});
+
+		var data = value.data;
+
+		if (value.compressed)
+		{
+			data = Graph.decompress(data);
+		}
+
+		if (value.type == 'mermaid')
+		{
+			if (window.isMermaidEnabled)
+			{
+				this.parseMermaidDiagram(data, null, mxUtils.bind(this, function(xml)
+				{
+					createDiagram(xml);
+				}), mxUtils.bind(this, function(e)
+				{
+					this.handleError(e);
+				}), null, true);
+			}
+			else
+			{
+				throw new Error(mxResources.get('serviceUnavailableOrBlocked'));
+			}
+		} 
+		else if (value.type == 'generate' && this.spinner.spin(
+			document.body, mxResources.get('generate') +
+			' \''+ data + '\''))
+		{
+			this.generateOpenAiMermaidDiagram(data, function(xml)
+			{
+				createDiagram(xml);
+			}, mxUtils.bind(this, function(e)
+			{
+				this.handleError(e, mxResources.get('errorLoadingFile'));
+			}), true, {complexity: 'high'});
+		}
+		else if (value.type == 'csv')
+		{
+			var graph = this.createTemporaryGraph(this.editor.graph.getStylesheet());
+			
+			this.importCsv(data, mxUtils.bind(this, function()
+			{
+				var codec = new mxCodec();
+				createDiagram(mxUtils.getXml(
+					codec.encode(graph.getModel())));
+			}), graph, true);
+		}
+		else if (value.type == 'xml')
+		{
+			createDiagram(data);
+		}
+		else
+		{
+			throw new Error(mxResources.get('invalidCallFnNotFound', [value.type]));
+		}
+	}
+	catch (e)
+	{
+		this.handleError(e, mxResources.get('errorLoadingFile'));
 	}
 };
 
@@ -3782,6 +3834,9 @@ App.prototype.loadDraft = function(xml, success)
 	}), null, null, true);
 };
 
+/**
+ * Checks for orphaned drafts.
+ */
 App.prototype.filterDrafts = function(filePath, guid, callback)
 {
 	var drafts = [];
@@ -5493,6 +5548,47 @@ App.prototype.loadFile = function(id, sameWindow, file, success, force)
 					window.location.href = 'https://app.diagrams.net/?desc=' + id.substring(1);
 				}));
 			}
+			else if (id.substring(0, 7) == 'create=')
+			{
+				var obj = JSON.parse(decodeURIComponent(id.substring(7)));
+
+				if (obj.type == 'message')
+				{
+					var sourceWindow = window.opener || window.parent;;
+
+					var createMessageHandler = mxUtils.bind(this, function(evt)
+					{
+						EditorUi.debug('EditorUi.createMessageHandler',
+							[this], 'evt', [evt]);
+
+						if (evt.source != sourceWindow)
+						{
+							return;
+						}
+						
+						try
+						{
+							if (evt.data.action == 'create' && evt.data.data != null)
+							{
+								mxEvent.removeListener(window, 'message', createMessageHandler);
+								this.executeCreateObject(evt.data.data);
+							}
+						}
+						catch (e)
+						{
+							data = null;
+						}
+					});
+					
+					// Sends ready message to source window to trigger sending of create message with data
+					mxEvent.addListener(window, 'message', createMessageHandler);
+					sourceWindow.postMessage(JSON.stringify({event: 'ready'}), '*');
+				}
+				else
+				{
+					this.executeCreateObject(obj);
+				}
+			}
 			else if (id.charAt(0) == 'R')
 			{
 				// Raw file encoded into URL
@@ -6169,12 +6265,12 @@ App.prototype.loadLibraries = function(libs, done)
  * @param {number} dx X-coordinate of the translation.
  * @param {number} dy Y-coordinate of the translation.
  */
-App.prototype.updateButtonContainer = function()
+App.prototype.updateButtonContainer = function(skipNotifications)
 {
 	if (this.buttonContainer != null)
 	{
 		// Fetch notifications
-		if (!EditorUi.isElectronApp && !this.isOffline())
+		if (!EditorUi.isElectronApp && !this.isOffline() && !skipNotifications)
 		{
 			if (urlParams['notif'] != null) //Notif for embed mode
 			{

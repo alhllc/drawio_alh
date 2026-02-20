@@ -432,6 +432,9 @@ OUTPUT FILES (in src/main/webapp/js/):
 				<file name="bmpDecoder.js" />
 				<file name="importer.js" />
 			</sources>
+			<sources dir="${war.dir}/js/diagramly/emf">
+				<file name="emf-svg.js" />
+			</sources>
 			<sources dir="${war.dir}/js/mermaid">
 				<file name="mermaid2drawio.js" />
 			</sources>

@@ -1170,13 +1170,13 @@ Menus.prototype.edgeStyleChange = function(menu, label, keys, values, sprite, pa
 			for (var i = 0; i < cells.length; i++)
 			{
 				var cell = cells[i];
-				
+
 				if (graph.getModel().isEdge(cell))
 				{
 					if (reset)
 					{
 						var geo = graph.getCellGeometry(cell);
-			
+
 						// Resets all edge points
 						if (geo != null)
 						{
@@ -1185,12 +1185,22 @@ Menus.prototype.edgeStyleChange = function(menu, label, keys, values, sprite, pa
 							graph.getModel().setGeometry(cell, geo);
 						}
 					}
-					
+
 					for (var j = 0; j < keys.length; j++)
 					{
 						graph.setCellStyles(keys[j], values[j], [cell]);
 					}
-					
+
+					edges.push(cell);
+				}
+				else if (mxUtils.getValue(graph.getCurrentCellStyle(cell),
+					mxConstants.STYLE_SHAPE) == 'mxgraph.basic.arc')
+				{
+					for (var j = 0; j < keys.length; j++)
+					{
+						graph.setCellStyles(keys[j], values[j], [cell]);
+					}
+
 					edges.push(cell);
 				}
 			}

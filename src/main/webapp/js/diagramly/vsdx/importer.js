@@ -280,9 +280,9 @@ var com;
                     var filesCount = 0;
                     var processedFiles = 0;
                     
-                    var doneCheck = function() 
+                    var doneCheck = function()
                     {
-	                    	if (processedFiles == filesCount) 
+	                    	if (processedFiles == filesCount)
 	                    	{
 	                    		var dateAfter = new Date();
 		                         //console.log(processedFiles + " File extracted in " + (dateAfter - dateBefore) + "ms");
@@ -307,91 +307,8 @@ var com;
 	                    	}
                     };
                     
-                    var emfChunkSize = window.EMF_CHUNK_SIZE || 10;
-                    
-                    function handleEmfEntriesPartition(emfEntries, index, mediaData)
-                    {
-                        var limit = Math.min(index + emfChunkSize, emfEntries.length);
-
-                        function done()
-                        {
-                            processedFiles++;
-                            doneCheck();
-                            index++;
-
-                            if (index == limit)
-                            {
-                                handleEmfEntriesPartition(emfEntries, index, mediaData);
-                            }
-                        }
-
-                        for (var i = index; i < limit; i++)
-                        {
-                            (function (zipEntry)
-                            {
-                                var retries = 0;
-
-                                function convertEmf(emfBlob)
-                                {
-                                    //send to emf conversion service
-                                    var formData = new FormData();
-                                    formData.append('img', emfBlob, zipEntry.name);
-                                    formData.append('inputformat', 'emf');
-                                    formData.append('outputformat', 'png');
-                                    var xhr = new XMLHttpRequest();
-                                    xhr.open('POST', EMF_CONVERT_URL);
-                                    xhr.responseType = 'blob';
-                                    _this.editorUi.addRemoteServiceSecurityCheck(xhr);
-                                    
-                                    xhr.onreadystatechange = mxUtils.bind(this, function()
-                                    {
-                                        if (xhr.readyState == 4)
-                                        {	
-                                            if (xhr.status >= 200 && xhr.status <= 299)
-                                            {
-                                                try
-                                                {
-                                                    var reader = new FileReader();
-                                                    reader.readAsDataURL(xhr.response); 
-                                                    reader.onloadend = function() 
-                                                    {
-                                                        var dataPos = reader.result.indexOf(',') + 1;
-                                                        mediaData[zipEntry.name] = reader.result.substr(dataPos);
-                                                        done();
-                                                    }
-                                                }
-                                                catch (e)
-                                                {
-                                                    console.log(e);
-                                                    done();
-                                                }
-                                            }
-                                            else
-                                            {
-                                                retries++;
-
-                                                if (retries < 3)
-                                                {
-                                                    convertEmf(emfBlob);
-                                                }
-                                                else
-                                                {
-                                                    done();
-                                                }
-                                            }
-                                        }
-                                    });
-                                    
-                                    xhr.send(formData);
-                                };
-
-                                zipEntry.async("blob").then(convertEmf);
-                            })(emfEntries[i]);
-                        }
-                    };
-
-                    JSZip.loadAsync(file)                                   
-                    .then(function(zip) 
+                    JSZip.loadAsync(file)
+                    .then(function(zip)
                     {
                     	if (Object.keys(zip.files).length == 0)
                     	{
@@ -404,8 +321,6 @@ var com;
                     	{
 	                        var dateAfter = new Date();
 	                       	//console.log(" (loaded in " + (dateAfter - dateBefore) + "ms)");
-                            var emfEntries = [];
-	                       	
 	                        zip.forEach(function (relativePath, zipEntry) 
 	                        {  
 	        					var filename = zipEntry.name;
@@ -461,17 +376,25 @@ var com;
 	                            else if (name.indexOf(mxVsdxCodec.vsdxPlaceholder + "/media") === 0)//binary files
 	                           	{
 	                            	filesCount++;
-	                            	if ((function (str, searchString) { var pos = str.length - searchString.length; var lastIndex = str.indexOf(searchString, pos); return lastIndex !== -1 && lastIndex === pos; })(name, ".emf")) 
+	                            	if ((function (str, searchString) { var pos = str.length - searchString.length; var lastIndex = str.indexOf(searchString, pos); return lastIndex !== -1 && lastIndex === pos; })(name, ".emf"))
 	                            	{
-	                            		if (JSZip.support.blob && window.EMF_CONVERT_URL) 
-	                            		{
-                                            emfEntries.push(zipEntry);
-	                            		}
-	                            		else
-                            			{
-	                            			processedFiles++;
-			        	                    doneCheck();
-                            			}
+                                        zipEntry.async("arraybuffer").then(function(buffer)
+                                        {
+                                            try
+                                            {
+                                                var svgStr = window['emfToSvg'](buffer);
+                                                mediaData[filename] = btoa(unescape(
+                                                    encodeURIComponent(svgStr)));
+                                            }
+                                            catch (e)
+                                            {
+                                                console.log('EMF conversion failed for ' +
+                                                    filename, e);
+                                            }
+
+                                            processedFiles++;
+                                            doneCheck();
+                                        });
 	                            	}
 	                            	else if ((function (str, searchString) { var pos = str.length - searchString.length; var lastIndex = str.indexOf(searchString, pos); return lastIndex !== -1 && lastIndex === pos; })(name, ".bmp")) {
 	                            		if (JSZip.support.uint8array) 
@@ -533,7 +456,6 @@ var com;
 	                           	}
 	                        });
 
-                            handleEmfEntriesPartition(emfEntries, 0, mediaData);
                     	}
                     }, function (e) {
                     		//console.log("Error!" + e.message);
@@ -1170,6 +1092,21 @@ var com;
                             if (child.geometry)
                             {
                                 child.geometry.y += potH;
+                            }
+                        }
+                    }
+                    // If any child is an aspect-fixed image, constrain the group too
+                    // so the whole shape resizes coherently
+                    if (group.children)
+                    {
+                        for (var i = 0; i < group.children.length; i++)
+                        {
+                            var child = group.children[i];
+
+                            if (child.style && child.style.indexOf('aspect=fixed') >= 0)
+                            {
+                                group.style += ';aspect=fixed';
+                                break;
                             }
                         }
                     }
@@ -9273,7 +9210,7 @@ var com;
                             else {
                                 return o1 === o2;
                             } })(iType, "MetaFile")) {
-                                compression = "png"; //we convert emf files to png
+                                compression = "svg+xml"; //we convert emf files to svg
                             }
                             else if ((function (o1, o2) { if (o1 && o1.equals) {
                                 return o1.equals(o2);
@@ -9286,7 +9223,7 @@ var com;
                             else {
                                 return o1 === o2;
                             } })(iType, "EnhMetaFile")) {
-                                compression = "png"; //we convert emf files to png
+                                compression = "svg+xml"; //we convert emf files to svg
                             }
                             else if (iType == "Object") //This is a very basic support for embedded visio objects by looking for associated image
                             {
@@ -11864,7 +11801,7 @@ var com;
                                     {
                                     	/* put */ (result["image"] = "data:image/" + iType + "," + iData);
                                     }
-                                    
+
                                     return result;
                                 }
                                 var parsedGeom = this.parseGeom();

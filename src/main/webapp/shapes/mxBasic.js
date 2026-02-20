@@ -2559,7 +2559,23 @@ mxUtils.extend(mxShapeBasicArc, mxActor);
 
 mxShapeBasicArc.prototype.customProperties = [
 	{name: 'startAngle', dispName: 'Start Angle', type: 'float', min:0, max:1, defVal: 0.3},
-	{name: 'endAngle', dispName: 'End Angle', type: 'float', min:0, max:1, defVal:0.1}
+	{name: 'endAngle', dispName: 'End Angle', type: 'float', min:0, max:1, defVal:0.1},
+	{name: 'startArrow', dispName: 'Start Arrow', type: 'enum', defVal: 'none',
+		enumList: [{val: 'none', dispName: 'None'}, {val: 'classic', dispName: 'Classic'},
+			{val: 'classicThin', dispName: 'Classic Thin'}, {val: 'open', dispName: 'Open'},
+			{val: 'openThin', dispName: 'Open Thin'}, {val: 'block', dispName: 'Block'},
+			{val: 'blockThin', dispName: 'Block Thin'}, {val: 'oval', dispName: 'Oval'},
+			{val: 'diamond', dispName: 'Diamond'}, {val: 'diamondThin', dispName: 'Diamond Thin'}]},
+	{name: 'endArrow', dispName: 'End Arrow', type: 'enum', defVal: 'none',
+		enumList: [{val: 'none', dispName: 'None'}, {val: 'classic', dispName: 'Classic'},
+			{val: 'classicThin', dispName: 'Classic Thin'}, {val: 'open', dispName: 'Open'},
+			{val: 'openThin', dispName: 'Open Thin'}, {val: 'block', dispName: 'Block'},
+			{val: 'blockThin', dispName: 'Block Thin'}, {val: 'oval', dispName: 'Oval'},
+			{val: 'diamond', dispName: 'Diamond'}, {val: 'diamondThin', dispName: 'Diamond Thin'}]},
+	{name: 'startFill', dispName: 'Start Fill', type: 'bool', defVal: true},
+	{name: 'endFill', dispName: 'End Fill', type: 'bool', defVal: true},
+	{name: 'startSize', dispName: 'Start Size', type: 'float', min: 1, defVal: 6},
+	{name: 'endSize', dispName: 'End Size', type: 'float', min: 1, defVal: 6}
 ];
 
 mxShapeBasicArc.prototype.cst = {ARC : 'mxgraph.basic.arc'};
@@ -2577,44 +2593,115 @@ mxShapeBasicArc.prototype.paintVertexShape = function(c, x, y, w, h)
 	var endAngleSource = Math.max(0, Math.min(1, parseFloat(mxUtils.getValue(this.style, 'endAngle', this.endAngle))));
 	var startAngle = 2 * Math.PI * startAngleSource;
 	var endAngle = 2 * Math.PI * endAngleSource;
-	var rx = w * 0.5;
-	var ry = h * 0.5;
-	
-	var startX = rx + Math.sin(startAngle) * rx;
-	var startY = ry - Math.cos(startAngle) * ry;
-	var endX = rx + Math.sin(endAngle) * rx;
-	var endY = ry - Math.cos(endAngle) * ry;
-	
+
+	// Arrow markers
+	var startArrow = mxUtils.getValue(this.style, mxConstants.STYLE_STARTARROW, mxConstants.NONE);
+	var endArrow = mxUtils.getValue(this.style, mxConstants.STYLE_ENDARROW, mxConstants.NONE);
+	var startSize = mxUtils.getNumber(this.style, mxConstants.STYLE_STARTSIZE, mxConstants.DEFAULT_MARKERSIZE);
+	var endSize = mxUtils.getNumber(this.style, mxConstants.STYLE_ENDSIZE, mxConstants.DEFAULT_MARKERSIZE);
+
+	// Inset ellipse to keep markers within shape bounds
+	var markerPadding = 0;
+
+	if (startArrow != null && startArrow != mxConstants.NONE)
+	{
+		markerPadding = Math.max(markerPadding, startSize);
+	}
+
+	if (endArrow != null && endArrow != mxConstants.NONE)
+	{
+		markerPadding = Math.max(markerPadding, endSize);
+	}
+
+	if (markerPadding > 0)
+	{
+		markerPadding = (markerPadding + this.strokewidth) / 2;
+	}
+
+	var cx = w * 0.5;
+	var cy = h * 0.5;
+	var rx = Math.max(0, w * 0.5 - markerPadding);
+	var ry = Math.max(0, h * 0.5 - markerPadding);
+
+	var startX = cx + Math.sin(startAngle) * rx;
+	var startY = cy - Math.cos(startAngle) * ry;
+	var endX = cx + Math.sin(endAngle) * rx;
+	var endY = cy - Math.cos(endAngle) * ry;
+
+	var startMarker = null;
+	var endMarker = null;
+
+	if (startArrow != null && startArrow != mxConstants.NONE)
+	{
+		var startFilled = this.style[mxConstants.STYLE_STARTFILL] != 0;
+
+		// Direction pointing into the start (opposite of clockwise tangent)
+		var dx = -rx * Math.cos(startAngle);
+		var dy = -ry * Math.sin(startAngle);
+		var dist = Math.sqrt(dx * dx + dy * dy);
+
+		if (dist > 0)
+		{
+			var pe = new mxPoint(startX, startY);
+			startMarker = mxMarker.createMarker(c, this, startArrow, pe,
+				dx / dist, dy / dist, startSize, true, this.strokewidth, startFilled);
+			startX = pe.x;
+			startY = pe.y;
+		}
+	}
+
+	if (endArrow != null && endArrow != mxConstants.NONE)
+	{
+		var endFilled = this.style[mxConstants.STYLE_ENDFILL] != 0;
+
+		// Direction along the clockwise tangent at end
+		var dx = rx * Math.cos(endAngle);
+		var dy = ry * Math.sin(endAngle);
+		var dist = Math.sqrt(dx * dx + dy * dy);
+
+		if (dist > 0)
+		{
+			var pe = new mxPoint(endX, endY);
+			endMarker = mxMarker.createMarker(c, this, endArrow, pe,
+				dx / dist, dy / dist, endSize, false, this.strokewidth, endFilled);
+			endX = pe.x;
+			endY = pe.y;
+		}
+	}
+
+	// Draw arc
 	var angDiff = endAngle - startAngle;
-	
+
 	if (angDiff < 0)
 	{
 		angDiff = angDiff + Math.PI * 2;
 	}
-		
+
 	var bigArc = 0;
-	
+
 	if (angDiff > Math.PI)
 	{
 		bigArc = 1;
 	}
-		
+
 	c.begin();
-	
+
 	var startAngleDiff = startAngleSource % 1;
 	var endAngleDiff = endAngleSource % 1;
-	
-	if (startAngleDiff == 0 && endAngleDiff == 0.5)
+
+	if (startMarker == null && endMarker == null &&
+		startAngleDiff == 0 && endAngleDiff == 0.5)
 	{
 		c.moveTo(startX, startY);
-		c.arcTo(rx, ry, 0, 0, 1, w, h * 0.5);
-		c.arcTo(rx, ry, 0, 0, 1, w * 0.5, h);
+		c.arcTo(rx, ry, 0, 0, 1, cx + rx, cy);
+		c.arcTo(rx, ry, 0, 0, 1, cx, cy + ry);
 	}
-	else if (startAngleDiff == 0.5 && endAngleDiff == 0)
+	else if (startMarker == null && endMarker == null &&
+		startAngleDiff == 0.5 && endAngleDiff == 0)
 	{
 		c.moveTo(startX, startY);
-		c.arcTo(rx, ry, 0, 0, 1, 0, h * 0.5);
-		c.arcTo(rx, ry, 0, 0, 1, w * 0.5, 0);
+		c.arcTo(rx, ry, 0, 0, 1, cx - rx, cy);
+		c.arcTo(rx, ry, 0, 0, 1, cx, cy - ry);
 	}
 	else
 	{
@@ -2623,6 +2710,24 @@ mxShapeBasicArc.prototype.paintVertexShape = function(c, x, y, w, h)
 	}
 
 	c.stroke();
+
+	// Paint markers
+	c.setShadow(false);
+	c.setDashed(false);
+
+	if (startMarker != null)
+	{
+		c.setFillColor(mxUtils.getValue(this.style,
+			mxConstants.STYLE_STARTFILLCOLOR, this.stroke));
+		startMarker();
+	}
+
+	if (endMarker != null)
+	{
+		c.setFillColor(mxUtils.getValue(this.style,
+			mxConstants.STYLE_ENDFILLCOLOR, this.stroke));
+		endMarker();
+	}
 };
 
 mxCellRenderer.registerShape(mxShapeBasicArc.prototype.cst.ARC, mxShapeBasicArc);
