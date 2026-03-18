@@ -1,3 +1,13 @@
+18-MAR-2026: 29.6.4
+
+- Tidies changelog
+- Add dev server launch configurations
+- Align custom paper size unit dropdown with other format panel elements
+- Removes exits from preprocessor
+- Fixes possible NPE in mxCellEditor.resize
+- Add noExitOnCancel option to template protocol action
+- Update InlineToolbar styles for improved dark mode support
+
 16-MAR-2026: 29.6.3
 
 - Fixes NPE

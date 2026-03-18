@@ -8225,11 +8225,11 @@ InlineToolbar.prototype.init = function()
 	this.toolbar.style.display = 'none';
 	this.toolbar.style.zIndex = 1;
 	this.toolbar.style.borderRadius = '3px';
-	this.toolbar.style.backgroundColor = 'rgba(255,255,255,0.9)';
-	this.toolbar.style.border = '1px solid #d0d0d0';
+	this.toolbar.style.backgroundColor = 'light-dark(white, var(--dark-color))';
+	this.toolbar.style.border = '1px solid light-dark(#d0d0d0, #505050)';
+	this.toolbar.style.opacity = '0.9';
 	this.toolbar.style.boxShadow = '0 1px 3px rgba(0,0,0,0.12)';
 	this.toolbar.style.whiteSpace = 'nowrap';
-	this.toolbar.className = 'geAdaptiveAsset';
 
 	var createButton = mxUtils.bind(this, function(title)
 	{
@@ -8243,6 +8243,7 @@ InlineToolbar.prototype.init = function()
 		btn.style.display = 'inline-block';
 		btn.style.verticalAlign = 'top';
 		btn.style.borderRadius = '2px';
+		btn.className = 'geAdaptiveAsset';
 		btn.setAttribute('title', title);
 
 		return btn;
@@ -8258,7 +8259,7 @@ InlineToolbar.prototype.init = function()
 	this.bendSep.style.verticalAlign = 'top';
 	this.bendSep.style.width = '1px';
 	this.bendSep.style.height = this.iconSize + 'px';
-	this.bendSep.style.backgroundColor = '#d0d0d0';
+	this.bendSep.style.backgroundColor = 'light-dark(#d0d0d0, #505050)';
 	this.toolbar.appendChild(this.bendSep);
 
 	// Bend style button (shows current bend, opens dropdown)

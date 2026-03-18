@@ -474,7 +474,11 @@ mxCellEditor.prototype.installListeners = function(elt)
 			this.resizeThread = window.setTimeout(mxUtils.bind(this, function()
 			{
 				this.resizeThread = null;
-				this.resize();
+
+				if (document.body != null)
+				{
+					this.resize();
+				}
 			}), 0);
 		}
 	});

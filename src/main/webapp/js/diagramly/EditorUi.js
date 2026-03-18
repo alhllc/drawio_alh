@@ -18331,8 +18331,8 @@
 							{
 								this.sidebar.hideTooltip();
 							}
-							
-							if (cancel)
+
+							if (cancel && !data.noExitOnCancel)
 							{
 								this.actions.get('exit').funct();
 							}
