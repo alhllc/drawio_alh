@@ -3290,6 +3290,18 @@
 		return true;
 	};
 
+	ManualInputShape.prototype.getLabelMargins = function(rect)
+	{
+		if (mxUtils.getValue(this.style, 'boundedLbl', false))
+		{
+			var s = parseFloat(mxUtils.getValue(this.style, 'size', this.size)) * this.scale;
+			
+			return new mxRectangle(0, s, 0, 0);
+		}
+		
+		return null;
+	};
+
 	ManualInputShape.prototype.redrawPath = function(c, x, y, w, h)
 	{
 		var s = Math.min(h, parseFloat(mxUtils.getValue(this.style, 'size', this.size)));

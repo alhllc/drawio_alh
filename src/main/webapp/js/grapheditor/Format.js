@@ -3851,7 +3851,7 @@ TextFormatPanel.prototype.addFont = function(container)
 			if (label != null && label.length > 0)
 			{
 				var tmp = document.createElement('div');
-				tmp.innerHTML = label;
+				tmp.innerHTML = Graph.sanitizeHtml(label);
 				var elts = tmp.getElementsByTagName('*');
 
 				for (var j = 0; j < elts.length; j++)

@@ -1,3 +1,9 @@
+05-MAY-2026: 29.7.12
+
+- Adds boundedLbl for manual input shape
+- Removes quip references
+- Adds label sanitize https://github.com/jgraph/docker-drawio/security/advisories/GHSA-wj8x-4c77-v8v3
+
 04-MAY-2026: 29.7.11
 
 - Upgrades to JDK 21
