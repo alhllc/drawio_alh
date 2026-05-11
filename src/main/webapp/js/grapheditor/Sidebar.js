@@ -1622,9 +1622,9 @@ Sidebar.prototype.addSearchPalette = function(expand)
 				});
 			}
 
-			if (matchingPages.length > 0)
+			for (var i = 0; i < Math.min(4, matchingPages.length); i++)
 			{
-				(function(page)
+				(function(page, isFirst)
 				{
 					var fn = function()
 					{
@@ -1637,13 +1637,16 @@ Sidebar.prototype.addSearchPalette = function(expand)
 						' (' + mxResources.get('page') + ')',
 						null, fn, parent);
 
-					if (enterAction == null)
+					if (isFirst)
 					{
-						setEnterAction(item, fn);
-					}
+						if (enterAction == null)
+						{
+							setEnterAction(item, fn);
+						}
 
-					setCtrlEnterAction(item, fn);
-				})(matchingPages[0]);
+						setCtrlEnterAction(item, fn);
+					}
+				})(matchingPages[i], i == 0);
 			}
 		}
 		

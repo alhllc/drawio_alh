@@ -498,7 +498,7 @@
 					w * 150, h * 75, 'Communication Network', 'Communication Network', null, null, this.getTagsForStencil(gn, '', dt + 'communication network').join(' ')),
 			this.createVertexTemplateEntry(am + 'network;', 
 					w * 65, h * 50, '', 'Communication Network', null, null, this.getTagsForStencil(gn, '', dt + 'communication network').join(' ')),
-			this.createVertexTemplateEntry(am + 'application;appType=func;archiType=square;', 
+			this.createVertexTemplateEntry(am + 'application;appType=func;archiType=rounded;', 
 					w * 150, h * 75, 'Technology Function', 'Technology Function', null, null, this.getTagsForStencil(gn, '', dt + 'function').join(' ')),
 			this.createVertexTemplateEntry(am + 'function;', 
 					w * 60, h * 40, '', 'Function', null, null, this.getTagsForStencil(gn, '', dt + 'function').join(' ')),

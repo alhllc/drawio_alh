@@ -1,3 +1,9 @@
+11-MAY-2026: 30.0.1
+
+- Corrects rounded of Archimate Techonology Functions shape [jgraph/drawio#5571]
+- ci: fix MCP index trigger tag pattern
+- Shows up to 4 matching pages in omnisearch dropdown
+
 09-MAY-2026: 30.0.0
 
 - Uses cached sanitized label for SVG support detection
