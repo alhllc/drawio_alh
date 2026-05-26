@@ -1,0 +1,44 @@
+name: Render Draw.io Diagrams
+# https://github.com/marketplace/actions/draw-io-render-action
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+  #  - name: Render Draw.io diagrams
+  #    uses: neozenith/drawio-render-action@v1
+
+     - name: Draw.io Render Action
+       uses: neozenith/drawio-render-action@v1.0.2
+      with:
+        input_path: '.'
+        output_path: 'png_gh-action'
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: drawio-pngs
+        path: docs/pngs
+
+    # Optional Step to commit rendered files
+    # Not necessary when building GH Pages as the generated output
+    # gets published as an artifact and not logner need to commit back
+    # This is useful if you want up to date diagrams in your GH Markdown files.
+    # - name: Commit and Push Rendered Diagrams
+    #   run: |
+    #     git config --global user.name 'github-actions[bot]'
+    #     git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+    #     git add .
+    #     git commit -m "Render Draw.io diagrams"
+    #     git push
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
