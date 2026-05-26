@@ -20,7 +20,7 @@ jobs:
      - name: Draw.io Render Action
        uses: neozenith/drawio-render-action@v1.0.2
       with:
-        input_path: '.'
+        input_path:
         output_path: 'png_gh-action'
 
     - name: Upload Artifacts
