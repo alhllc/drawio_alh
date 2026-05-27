@@ -1,0 +1,639 @@
+<mxfile host="app.diagrams.net" agent="GPT-5.5 Pro" pages="5">
+  <diagram id="14d4e222-1ba6-47c7-a964-2cff90e33000" name="Care Journey">
+    <mxGraphModel dx="1808" dy="1498" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1100" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0B2D4D;strokeColor=#0B2D4D;fontColor=#FFFFFF;strokeWidth=2;fontStyle=1;fontSize=20;spacing=12;" value="&lt;b&gt;Brain and Spine Care Journey&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:12px&#39;&gt;A patient-facing view of coordinated evaluation, options, treatment, and recovery | Nkrumah Neurosurgery &amp; Spine&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="1720" x="40" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="footer" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F9FC;strokeColor=#BCCCDC;fontColor=#102A43;strokeWidth=1;dashed=1;spacing=8;" value="Patient education concept only. Final diagnosis and treatment recommendations require clinical evaluation." vertex="1">
+          <mxGeometry height="40" width="1720" x="40" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="b1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E6F7F4;strokeColor=#1F9A8A;fontColor=#102A43;strokeWidth=2;spacing=8;fontStyle=1;" value="Surgical and non-surgical options" vertex="1">
+          <mxGeometry height="52" width="210" x="70" y="125" as="geometry" />
+        </mxCell>
+        <mxCell id="b2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF4FF;strokeColor=#1F6F9F;fontColor=#102A43;strokeWidth=2;spacing=8;fontStyle=1;" value="Goals, lifestyle, and symptoms first" vertex="1">
+          <mxGeometry height="52" width="210" x="300" y="125" as="geometry" />
+        </mxCell>
+        <mxCell id="b3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF4D9;strokeColor=#D6B656;fontColor=#102A43;strokeWidth=2;spacing=8;fontStyle=1;" value="Education reduces confusion" vertex="1">
+          <mxGeometry height="52" width="210" x="530" y="125" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_patient" parent="1" style="swimlane;horizontal=0;startSize=120;fillColor=#F7F9FC;strokeColor=#BCCCDC;fontColor=#102A43;html=1;rounded=1;strokeWidth=1;" value="Patient" vertex="1">
+          <mxGeometry height="150" width="1720" x="40" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="p_symptoms" parent="lane_patient" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Symptom pattern&lt;/b&gt;&lt;br&gt;Back, neck, leg, arm, balance, headache" vertex="1">
+          <mxGeometry height="60" width="150" x="140" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="p_request" parent="lane_patient" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Request visit&lt;/b&gt;&lt;br&gt;Preferred date and contact method" vertex="1">
+          <mxGeometry height="60" width="150" x="350" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="p_history" parent="lane_patient" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Share history&lt;/b&gt;&lt;br&gt;Prior surgery, goals, daily limits" vertex="1">
+          <mxGeometry height="60" width="150" x="770" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="p_choice" parent="lane_patient" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Informed choice&lt;/b&gt;&lt;br&gt;Proceed with selected care plan" vertex="1">
+          <mxGeometry height="60" width="150" x="1190" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="p_recovery" parent="lane_patient" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2F855A;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Recovery tracking&lt;/b&gt;&lt;br&gt;Pain, function, walking, work goals" vertex="1">
+          <mxGeometry height="60" width="150" x="1490" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_office" parent="1" style="swimlane;horizontal=0;startSize=120;fillColor=#E8F4F8;strokeColor=#BCCCDC;fontColor=#102A43;html=1;rounded=1;strokeWidth=1;" value="Office / Care Coordinator" vertex="1">
+          <mxGeometry height="150" width="1720" x="40" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="o_intake" parent="lane_office" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Intake packet&lt;/b&gt;&lt;br&gt;Forms, records, insurance" vertex="1">
+          <mxGeometry height="60" width="150" x="350" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="o_records" parent="lane_office" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Records review&lt;/b&gt;&lt;br&gt;Imaging, prior notes, meds" vertex="1">
+          <mxGeometry height="60" width="150" x="560" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="o_schedule" parent="lane_office" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Schedule care&lt;/b&gt;&lt;br&gt;Procedure, injection, PT, follow-up" vertex="1">
+          <mxGeometry height="60" width="150" x="1190" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="o_follow" parent="lane_office" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2F855A;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Follow-up cadence&lt;/b&gt;&lt;br&gt;Questions, outcomes, next steps" vertex="1">
+          <mxGeometry height="60" width="150" x="1490" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_surgeon" parent="1" style="swimlane;horizontal=0;startSize=120;fillColor=#E6F7F4;strokeColor=#BCCCDC;fontColor=#102A43;html=1;rounded=1;strokeWidth=1;" value="Neurosurgeon" vertex="1">
+          <mxGeometry height="150" width="1720" x="40" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="s_exam" parent="lane_surgeon" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F6F9F;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Focused exam&lt;/b&gt;&lt;br&gt;Neurologic and spine assessment" vertex="1">
+          <mxGeometry height="60" width="150" x="560" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="s_imaging" parent="lane_surgeon" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F6F9F;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Diagnosis explained&lt;/b&gt;&lt;br&gt;Cause, severity, options" vertex="1">
+          <mxGeometry height="60" width="150" x="770" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="s_decision" parent="lane_surgeon" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFF4D9;strokeColor=#D6B656;fontColor=#102A43;strokeWidth=2;" value="&lt;b&gt;Non-surgical relief likely?&lt;/b&gt;" vertex="1">
+          <mxGeometry height="80" width="150" x="980" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="s_plan" parent="lane_surgeon" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6B46C1;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Surgical plan&lt;/b&gt;&lt;br&gt;When symptoms and imaging align" vertex="1">
+          <mxGeometry height="60" width="150" x="1190" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_team" parent="1" style="swimlane;horizontal=0;startSize=120;fillColor=#FFF0E6;strokeColor=#BCCCDC;fontColor=#102A43;html=1;rounded=1;strokeWidth=1;" value="Imaging / Treatment Team" vertex="1">
+          <mxGeometry height="150" width="1720" x="40" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="t_imaging" parent="lane_team" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;MRI / CT / X-ray&lt;/b&gt;&lt;br&gt;Confirm anatomy and compression" vertex="1">
+          <mxGeometry height="60" width="150" x="560" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="t_conservative" parent="lane_team" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F9A8A;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Conservative track&lt;/b&gt;&lt;br&gt;PT, medication, injections" vertex="1">
+          <mxGeometry height="60" width="150" x="980" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="t_or" parent="lane_team" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6B46C1;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Procedure track&lt;/b&gt;&lt;br&gt;MIS, endoscopic, robotics, fusion" vertex="1">
+          <mxGeometry height="60" width="150" x="1190" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="t_rehab" parent="lane_team" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2F855A;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Rehab and outcomes&lt;/b&gt;&lt;br&gt;Strength, mobility, symptom relief" vertex="1">
+          <mxGeometry height="60" width="150" x="1490" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="p_symptoms" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="p_request" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="p_request" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="o_intake" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="o_intake" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="o_records" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="o_records" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="s_exam" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="s_exam" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="t_imaging" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="t_imaging" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="s_imaging" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="s_imaging" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="p_history" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="p_history" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="s_decision" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="s_decision" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="t_conservative" value="Yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="t_conservative" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="p_recovery" value="Improves">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="s_decision" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="s_plan" value="No / severe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="s_plan" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="p_choice" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="p_choice" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="o_schedule" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="o_schedule" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="t_or" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="t_or" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="t_rehab" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="t_rehab" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="p_recovery" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="p_recovery" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="o_follow" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF4D9;strokeColor=#D6B656;fontColor=#102A43;strokeWidth=1;dashed=1;spacing=8;" value="&lt;b&gt;Presentation angle:&lt;/b&gt;&lt;br&gt;Show the client how complex neurosurgical care can be translated into a calm, understandable patient journey." vertex="1">
+          <mxGeometry height="80" width="520" x="70" y="905" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="a2377677-d906-41b2-b548-ff3bfae6bd55" name="Condition Treatment Map">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1100" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="&lt;b&gt;Spine Condition-to-Treatment Map&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:12px&#39;&gt;Concept map connecting symptoms, likely condition categories, and care options&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0B2D4D;strokeColor=#0B2D4D;fontColor=#FFFFFF;strokeWidth=2;fontStyle=1;fontSize=20;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="1720" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="footer" value="Patient education concept only. Final diagnosis and treatment recommendations require clinical evaluation." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F9FC;strokeColor=#BCCCDC;fontColor=#102A43;strokeWidth=1;dashed=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1020" width="1720" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="sym_container" value="Symptom Clusters" style="swimlane;startSize=32;fillColor=#F7F9FC;strokeColor=#BCCCDC;fontColor=#102A43;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="160" width="350" height="760" as="geometry" />
+        </mxCell>
+        <mxCell id="cond_container" value="Condition Categories" style="swimlane;startSize=32;fillColor=#EAF4FF;strokeColor=#9FB3C8;fontColor=#102A43;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="160" width="420" height="760" as="geometry" />
+        </mxCell>
+        <mxCell id="care_container" value="Care Options" style="swimlane;startSize=32;fillColor=#E6F7F4;strokeColor=#9AE6B4;fontColor=#102A43;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="160" width="720" height="760" as="geometry" />
+        </mxCell>
+        <mxCell id="sym_back" value="Low back pain&lt;br&gt;or neck pain" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="sym_container">
+          <mxGeometry x="40" y="55" width="270" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="sym_rad" value="Radiating arm / leg pain&lt;br&gt;numbness or tingling" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="sym_container">
+          <mxGeometry x="40" y="155" width="270" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="sym_gait" value="Leg heaviness&lt;br&gt;gait change or weakness" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="sym_container">
+          <mxGeometry x="40" y="255" width="270" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="sym_curve" value="Visible curve&lt;br&gt;postural imbalance" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="sym_container">
+          <mxGeometry x="40" y="355" width="270" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="sym_head" value="Headache, nausea,&lt;br&gt;balance episodes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="sym_container">
+          <mxGeometry x="40" y="455" width="270" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="sym_cancer" value="Cancer history&lt;br&gt;or neurologic deficit" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="sym_container">
+          <mxGeometry x="40" y="555" width="270" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="cond_ddd" value="&lt;b&gt;Degenerative Disc Disease&lt;/b&gt;&lt;br&gt;Wear and tear / microtrauma" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F6F9F;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="cond_container">
+          <mxGeometry x="50" y="55" width="320" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="cond_herniation" value="&lt;b&gt;Disc Herniation&lt;/b&gt;&lt;br&gt;Disc material enters canal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F6F9F;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="cond_container">
+          <mxGeometry x="50" y="155" width="320" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="cond_stenosis" value="&lt;b&gt;Spinal Stenosis&lt;/b&gt;&lt;br&gt;Narrowed spaces around nerves" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F6F9F;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="cond_container">
+          <mxGeometry x="50" y="255" width="320" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="cond_scoliosis" value="&lt;b&gt;Scoliosis&lt;/b&gt;&lt;br&gt;S or C curve; adult degenerative" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F6F9F;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="cond_container">
+          <mxGeometry x="50" y="355" width="320" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="cond_chiari" value="&lt;b&gt;Chiari Type I&lt;/b&gt;&lt;br&gt;Crowded skull-spine junction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F6F9F;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="cond_container">
+          <mxGeometry x="50" y="455" width="320" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="cond_tumor" value="&lt;b&gt;Brain / Spine Tumor&lt;/b&gt;&lt;br&gt;Primary, metastatic, or spinal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F6F9F;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="cond_container">
+          <mxGeometry x="50" y="555" width="320" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="care_edu" value="&lt;b&gt;Education and monitoring&lt;/b&gt;&lt;br&gt;Explain anatomy, red flags, goals" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F9A8A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="care_container">
+          <mxGeometry x="40" y="55" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="care_cons" value="&lt;b&gt;Conservative care&lt;/b&gt;&lt;br&gt;PT, anti-inflammatory medication, muscle relaxers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F9A8A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="care_container">
+          <mxGeometry x="280" y="55" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="care_inj" value="&lt;b&gt;Injection / block track&lt;/b&gt;&lt;br&gt;Epidural steroid, nerve root block, RFA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F9A8A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="care_container">
+          <mxGeometry x="520" y="55" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="care_endoscopic" value="&lt;b&gt;Endoscopic / microdiscectomy&lt;/b&gt;&lt;br&gt;Remove herniated portion; free nerve" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F9A8A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="care_container">
+          <mxGeometry x="40" y="205" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="care_decompress" value="&lt;b&gt;Decompression&lt;/b&gt;&lt;br&gt;Laminectomy, laminotomy, laminoplasty" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F9A8A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="care_container">
+          <mxGeometry x="280" y="205" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="care_fusion" value="&lt;b&gt;Fusion / fixation&lt;/b&gt;&lt;br&gt;Cage, screws, rods, stability" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F9A8A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="care_container">
+          <mxGeometry x="520" y="205" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="care_tumor" value="&lt;b&gt;Tumor care pathway&lt;/b&gt;&lt;br&gt;Surgery, radiation, chemotherapy, rehab" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F9A8A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="care_container">
+          <mxGeometry x="160" y="395" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="care_chiari" value="&lt;b&gt;Chiari decompression&lt;/b&gt;&lt;br&gt;Relieve crowding / pressure" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F9A8A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="care_container">
+          <mxGeometry x="400" y="395" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="care_follow" value="&lt;b&gt;Outcome follow-up&lt;/b&gt;&lt;br&gt;Pain, function, neurologic recovery" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F9A8A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="care_container">
+          <mxGeometry x="280" y="575" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="plan" value="&lt;b&gt;Personalized Brain and Spine Plan&lt;/b&gt;&lt;br&gt;Symptoms + exam + imaging + goals" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF4D9;strokeColor=#D6B656;fontColor=#102A43;strokeWidth=2;spacing=8;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="720" y="935" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="m1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="sym_back" target="cond_ddd">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="sym_back" target="cond_herniation">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="sym_rad" target="cond_herniation">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="sym_rad" target="cond_stenosis">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="sym_gait" target="cond_stenosis">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="sym_curve" target="cond_scoliosis">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="sym_head" target="cond_chiari">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="sym_cancer" target="cond_tumor">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="cond_ddd" target="care_cons">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;dashed=1;" edge="1" parent="1" source="cond_herniation" target="care_inj">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;dashed=1;" edge="1" parent="1" source="cond_herniation" target="care_endoscopic">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;dashed=1;" edge="1" parent="1" source="cond_stenosis" target="care_decompress">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="cond_scoliosis" target="care_fusion">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="cond_chiari" target="care_chiari">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="cond_tumor" target="care_tumor">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="care_cons" target="care_follow">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="care_inj" target="care_follow">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="care_endoscopic" target="care_follow">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="care_decompress" target="care_follow">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="care_fusion" target="care_follow">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="care_tumor" target="care_follow">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="care_chiari" target="care_follow">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="care_follow" target="plan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="&lt;b&gt;Diagram use:&lt;/b&gt;&lt;br&gt;A consult-room handout that turns a long list of conditions into a navigable treatment conversation." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF4D9;strokeColor=#D6B656;fontColor=#102A43;strokeWidth=1;dashed=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="935" width="560" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="9e12daa5-24f1-414c-8d1f-1cf09f0e0aef" name="Herniated Disc and Sciatica">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1100" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="&lt;b&gt;Lumbar Disc Herniation to Sciatica Explainer&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:12px&#39;&gt;Labeled patient-education illustration: disc material, nerve root irritation, and leg symptoms&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0B2D4D;strokeColor=#0B2D4D;fontColor=#FFFFFF;strokeWidth=2;fontStyle=1;fontSize=20;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="1720" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="footer" value="Patient education concept only. Final diagnosis and treatment recommendations require clinical evaluation." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F9FC;strokeColor=#BCCCDC;fontColor=#102A43;strokeWidth=1;dashed=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1020" width="1720" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="panel1" value="1. Healthy lumbar motion segment" style="swimlane;startSize=34;fillColor=#F7F9FC;strokeColor=#BCCCDC;html=1;rounded=1;fontColor=#102A43;" vertex="1" parent="1">
+          <mxGeometry x="70" y="155" width="470" height="720" as="geometry" />
+        </mxCell>
+        <mxCell id="panel2" value="2. Herniation and nerve compression" style="swimlane;startSize=34;fillColor=#FFF4D9;strokeColor=#D6B656;html=1;rounded=1;fontColor=#102A43;" vertex="1" parent="1">
+          <mxGeometry x="665" y="155" width="470" height="720" as="geometry" />
+        </mxCell>
+        <mxCell id="panel3" value="3. Sciatica symptom path" style="swimlane;startSize=34;fillColor=#EAF4FF;strokeColor=#9FB3C8;html=1;rounded=1;fontColor=#102A43;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="155" width="470" height="720" as="geometry" />
+        </mxCell>
+        <mxCell id="h_vert_0" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E8F9;strokeColor=#627D98;strokeWidth=2;" vertex="1" parent="panel1">
+          <mxGeometry x="150" y="80" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="h_vert_1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E8F9;strokeColor=#627D98;strokeWidth=2;" vertex="1" parent="panel1">
+          <mxGeometry x="150" y="220" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="h_vert_2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E8F9;strokeColor=#627D98;strokeWidth=2;" vertex="1" parent="panel1">
+          <mxGeometry x="150" y="360" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="h_disc_0" value="&lt;b&gt;Disc&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#BEE3F8;strokeColor=#2B6CB0;strokeWidth=2;fontColor=#102A43;" vertex="1" parent="panel1">
+          <mxGeometry x="170" y="165" width="150" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="h_disc_1" value="&lt;b&gt;Disc&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#BEE3F8;strokeColor=#2B6CB0;strokeWidth=2;fontColor=#102A43;" vertex="1" parent="panel1">
+          <mxGeometry x="170" y="305" width="150" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="h_spinal_canal" value="Spinal canal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#BCCCDC;strokeWidth=1;dashed=1;fontSize=10;" vertex="1" parent="panel1">
+          <mxGeometry x="355" y="100" width="60" height="335" as="geometry" />
+        </mxCell>
+        <mxCell id="h_nerve" value="Nerve root" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3BF;strokeColor=#F7C948;strokeWidth=2;fontSize=10;" vertex="1" parent="panel1">
+          <mxGeometry x="335" y="250" width="110" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="h_label" value="Disc cushions vertebrae; nerve root exits without compression." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#BCCCDC;fontColor=#102A43;strokeWidth=1;dashed=1;spacing=8;" vertex="1" parent="panel1">
+          <mxGeometry x="75" y="515" width="320" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="x_vert_0" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E8F9;strokeColor=#627D98;strokeWidth=2;" vertex="1" parent="panel2">
+          <mxGeometry x="150" y="80" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="x_vert_1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E8F9;strokeColor=#627D98;strokeWidth=2;" vertex="1" parent="panel2">
+          <mxGeometry x="150" y="220" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="x_vert_2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E8F9;strokeColor=#627D98;strokeWidth=2;" vertex="1" parent="panel2">
+          <mxGeometry x="150" y="360" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="x_disc_top" value="&lt;b&gt;Disc&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#BEE3F8;strokeColor=#2B6CB0;strokeWidth=2;fontColor=#102A43;" vertex="1" parent="panel2">
+          <mxGeometry x="170" y="165" width="150" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="x_disc_bad" value="&lt;b&gt;Ruptured disc&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEB2B2;strokeColor=#C74343;strokeWidth=2;fontColor=#102A43;" vertex="1" parent="panel2">
+          <mxGeometry x="170" y="305" width="150" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="x_herniation" value="Herniated&lt;br&gt;material" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F56565;strokeColor=#C53030;fontColor=#FFFFFF;strokeWidth=2;fontStyle=1;fontSize=10;" vertex="1" parent="panel2">
+          <mxGeometry x="320" y="300" width="90" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="x_nerve" value="Compressed nerve root" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3BF;strokeColor=#C05621;strokeWidth=3;fontSize=10;" vertex="1" parent="panel2">
+          <mxGeometry x="335" y="250" width="115" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="x_callout" value="&lt;b&gt;What patients need to see:&lt;/b&gt;&lt;br&gt;Disc material can irritate or compress a lumbar nerve root, producing radiating leg symptoms." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D6B656;fontColor=#102A43;strokeWidth=1;dashed=1;spacing=8;" vertex="1" parent="panel2">
+          <mxGeometry x="65" y="515" width="345" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="xh1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;dashed=1;" edge="1" parent="1" source="x_callout" target="x_herniation">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="body_head" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#E0E8F9;strokeColor=#627D98;strokeWidth=2;" vertex="1" parent="panel3">
+          <mxGeometry x="205" y="75" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="body_torso" value="Lumbar&lt;br&gt;spine" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#627D98;strokeWidth=2;fontColor=#102A43;" vertex="1" parent="panel3">
+          <mxGeometry x="170" y="160" width="150" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="body_leg1" value="Leg symptom&lt;br&gt;path" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE8E8;strokeColor=#C74343;strokeWidth=2;fontColor=#102A43;" vertex="1" parent="panel3">
+          <mxGeometry x="135" y="340" width="95" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="body_leg2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F9FC;strokeColor=#BCCCDC;strokeWidth=2;" vertex="1" parent="panel3">
+          <mxGeometry x="255" y="340" width="95" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="sym_pain" value="Pain" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#C74343;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="panel3">
+          <mxGeometry x="55" y="345" width="92" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="sym_numb" value="Numbness&lt;br&gt;tingling" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#C74343;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="panel3">
+          <mxGeometry x="60" y="420" width="100" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="sym_weak" value="Weakness" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#C74343;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="panel3">
+          <mxGeometry x="65" y="510" width="100" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sym1" value="sciatic distribution" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="body_torso" target="body_leg1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sym2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;dashed=1;" edge="1" parent="1" source="sym_pain" target="body_leg1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sym3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;dashed=1;" edge="1" parent="1" source="sym_numb" target="body_leg1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sym4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;dashed=1;" edge="1" parent="1" source="sym_weak" target="body_leg1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="treatment_card" value="&lt;b&gt;Care conversation&lt;/b&gt;&lt;br&gt;Non-surgical relief: medication, PT, injections.&lt;br&gt;Surgical relief: microdiscectomy or decompression when appropriate." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E6F7F4;strokeColor=#1F9A8A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="910" width="460" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="flow12" value="disc rupture" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="panel1" target="panel2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flow23" value="nerve symptoms" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="panel2" target="panel3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="7ddc696c-12f2-4cfd-b371-8b0d781086fb" name="MIS Decompression Timeline">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1100" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="&lt;b&gt;Minimally Invasive Lumbar Decompression Pathway&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:12px&#39;&gt;Decision tree plus recovery timeline for MIS-TLIF, MIS microdiscectomy, and related procedures&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0B2D4D;strokeColor=#0B2D4D;fontColor=#FFFFFF;strokeWidth=2;fontStyle=1;fontSize=20;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="1720" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="footer" value="Patient education concept only. Final diagnosis and treatment recommendations require clinical evaluation." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F9FC;strokeColor=#BCCCDC;fontColor=#102A43;strokeWidth=1;dashed=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1020" width="1720" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="start" value="&lt;b&gt;Persistent lumbar symptoms&lt;/b&gt;&lt;br&gt;Back and/or leg pain, numbness, paresthesia" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF4FF;strokeColor=#1F6F9F;fontColor=#102A43;strokeWidth=2;spacing=8;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="165" width="220" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="nonsurg" value="&lt;b&gt;Non-surgical care attempted&lt;/b&gt;&lt;br&gt;PT, medication, injections when appropriate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F9A8A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="340" y="165" width="220" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="imaging" value="&lt;b&gt;Imaging confirms compression&lt;/b&gt;&lt;br&gt;Disc, stenosis, instability, recurrent herniation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F6F9F;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="620" y="165" width="240" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="candidate" value="&lt;b&gt;Surgical candidate?&lt;/b&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFF4D9;strokeColor=#D6B656;fontColor=#102A43;strokeWidth=2;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="930" y="155" width="160" height="92" as="geometry" />
+        </mxCell>
+        <mxCell id="continue" value="&lt;b&gt;Continue conservative plan&lt;/b&gt;&lt;br&gt;Reassess goals and function" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F9A8A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1195" y="90" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="select" value="&lt;b&gt;Select MIS approach&lt;/b&gt;&lt;br&gt;Match anatomy, symptoms, goals" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF0E6;strokeColor=#DD6B20;fontColor=#102A43;strokeWidth=2;spacing=8;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1195" y="225" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="start" target="nonsurg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="persistent" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="nonsurg" target="imaging">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="imaging" target="candidate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="candidate" target="continue">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="candidate" target="select">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="micro" value="&lt;b&gt;MIS Microdiscectomy&lt;/b&gt;&lt;br&gt;Small incision; remove herniated portion pressing on nerve." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6B46C1;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="105" y="385" width="430" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="tlif" value="&lt;b&gt;MIS-TLIF&lt;/b&gt;&lt;br&gt;Access spine from an angle; remove disc portion; add cage, screws, rods when indicated." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6B46C1;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="685" y="385" width="430" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="other" value="&lt;b&gt;Other MIS options&lt;/b&gt;&lt;br&gt;LLIF / XLIF, OLIF, posterolateral fusion, percutaneous fixation." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6B46C1;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1265" y="385" width="430" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="disc herniation" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="select" target="micro">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="instability / stenosis" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="select" target="tlif">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="case-specific" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="select" target="other">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="benefits" value="&lt;b&gt;Why patients care:&lt;/b&gt;&lt;br&gt;Smaller incisions, less muscle disruption, less blood loss, reduced post-op pain, faster recovery - when appropriate for the case." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F9FC;strokeColor=#BCCCDC;fontColor=#102A43;strokeWidth=1;dashed=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="245" y="540" width="1320" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="timeline" value="Recovery conversation timeline" style="swimlane;startSize=34;fillColor=#F7F9FC;strokeColor=#BCCCDC;html=1;rounded=1;fontColor=#102A43;" vertex="1" parent="1">
+          <mxGeometry x="80" y="675" width="1640" height="255" as="geometry" />
+        </mxCell>
+        <mxCell id="tl0" value="&lt;b&gt;Day 0&lt;/b&gt;&lt;br&gt;Procedure and decompression" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2F855A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="timeline">
+          <mxGeometry x="60" y="75" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="tl1" value="&lt;b&gt;Hours&lt;/b&gt;&lt;br&gt;Walking as directed" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2F855A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="timeline">
+          <mxGeometry x="360" y="75" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="tl2" value="&lt;b&gt;Same day&lt;/b&gt;&lt;br&gt;Many microdiscectomy patients go home" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2F855A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="timeline">
+          <mxGeometry x="660" y="75" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="tl3" value="&lt;b&gt;2 weeks&lt;/b&gt;&lt;br&gt;Driving, work, low-impact activity may resume" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2F855A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="timeline">
+          <mxGeometry x="960" y="75" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="tl4" value="&lt;b&gt;&lt;= 6 weeks&lt;/b&gt;&lt;br&gt;Typical recovery window; patient-specific" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2F855A;fontColor=#102A43;strokeWidth=2;spacing=8;" vertex="1" parent="timeline">
+          <mxGeometry x="1260" y="75" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="tle0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="tl0" target="tl1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tle1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="tl1" target="tl2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tle2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="tl2" target="tl3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tle3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" edge="1" parent="1" source="tl3" target="tl4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="precautions" value="&lt;b&gt;Recovery coaching:&lt;/b&gt;&lt;br&gt;Avoid excessive bending, lifting, and twisting; use PT and medication as directed." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#BCCCDC;fontColor=#102A43;strokeWidth=1;dashed=1;spacing=8;" vertex="1" parent="timeline">
+          <mxGeometry x="510" y="185" width="620" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="tlprec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;dashed=1;" edge="1" parent="1" source="precautions" target="tl4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="1a77ef0a-bad5-4ce0-b0ff-25620d53f88e" name="Tumor and Chiari Map">
+    <mxGraphModel dx="1808" dy="1498" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1100" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0B2D4D;strokeColor=#0B2D4D;fontColor=#FFFFFF;strokeWidth=2;fontStyle=1;fontSize=20;spacing=12;" value="&lt;b&gt;Brain / Spine Tumor and Chiari Care Map&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:12px&#39;&gt;High-level neurosurgical pathway for complex brain-spine presentations&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="1720" x="40" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="footer" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F9FC;strokeColor=#BCCCDC;fontColor=#102A43;strokeWidth=1;dashed=1;spacing=8;" value="Patient education concept only. Final diagnosis and treatment recommendations require clinical evaluation." vertex="1">
+          <mxGeometry height="40" width="1720" x="40" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="left" parent="1" style="swimlane;startSize=34;fillColor=#F7F9FC;strokeColor=#BCCCDC;html=1;rounded=1;fontColor=#102A43;" value="Presentation and Workup" vertex="1">
+          <mxGeometry height="780" width="480" x="60" y="155" as="geometry" />
+        </mxCell>
+        <mxCell id="sx_brain" parent="left" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Brain-related symptoms&lt;/b&gt;&lt;br&gt;Headache, nausea, black-out episodes, balance changes" vertex="1">
+          <mxGeometry height="75" width="360" x="55" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="sx_spine" parent="left" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Spine-related symptoms&lt;/b&gt;&lt;br&gt;Pain, neurologic problems, weakness, walking difficulty" vertex="1">
+          <mxGeometry height="75" width="360" x="55" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="sx_context" parent="left" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#486581;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Context&lt;/b&gt;&lt;br&gt;Cancer history, prior surgery, functional goals" vertex="1">
+          <mxGeometry height="75" width="360" x="55" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="workup" parent="left" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF4FF;strokeColor=#1F6F9F;fontColor=#102A43;strokeWidth=2;spacing=8;fontStyle=1;" value="&lt;b&gt;Workup&lt;/b&gt;&lt;br&gt;Neurologic exam + MRI / CT + history review" vertex="1">
+          <mxGeometry height="85" width="360" x="55" y="455" as="geometry" />
+        </mxCell>
+        <mxCell id="explain" parent="left" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#BCCCDC;fontColor=#102A43;strokeWidth=1;dashed=1;spacing=8;" value="&lt;b&gt;Communication objective&lt;/b&gt;&lt;br&gt;Show the patient what anatomy is involved and why treatment may differ." vertex="1">
+          <mxGeometry height="80" width="360" x="55" y="605" as="geometry" />
+        </mxCell>
+        <mxCell id="middle" parent="1" style="swimlane;startSize=34;fillColor=#EAF4FF;strokeColor=#9FB3C8;html=1;rounded=1;fontColor=#102A43;" value="Decision Branch" vertex="1">
+          <mxGeometry height="780" width="470" x="650" y="155" as="geometry" />
+        </mxCell>
+        <mxCell id="branch" parent="middle" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFF4D9;strokeColor=#D6B656;fontColor=#102A43;strokeWidth=2;fontStyle=1;" value="&lt;b&gt;Primary branch?&lt;/b&gt;" vertex="1">
+          <mxGeometry height="100" width="180" x="140" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="tumor" parent="middle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#C74343;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Tumor pathway&lt;/b&gt;&lt;br&gt;Brain tumor, spinal tumor, or spinal metastasis" vertex="1">
+          <mxGeometry height="75" width="350" x="60" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="chiari" parent="middle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6B46C1;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Chiari Type I pathway&lt;/b&gt;&lt;br&gt;Brain tonsils crowded at skull-spine junction" vertex="1">
+          <mxGeometry height="75" width="350" x="60" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="other" parent="middle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F6F9F;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Other spine / nerve issue&lt;/b&gt;&lt;br&gt;Refer to condition-specific plan" vertex="1">
+          <mxGeometry height="75" width="350" x="60" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="safety" parent="middle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5F5;strokeColor=#FEB2B2;fontColor=#102A43;strokeWidth=1;dashed=1;spacing=8;" value="&lt;b&gt;Safety note&lt;/b&gt;&lt;br&gt;Progressive neurologic changes require prompt evaluation." vertex="1">
+          <mxGeometry height="65" width="350" x="60" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="right" parent="1" style="swimlane;startSize=34;fillColor=#E6F7F4;strokeColor=#9AE6B4;html=1;rounded=1;fontColor=#102A43;" value="Treatment and Recovery Goals" vertex="1">
+          <mxGeometry height="780" width="500" x="1230" y="155" as="geometry" />
+        </mxCell>
+        <mxCell id="goals" parent="right" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2F855A;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Shared goals&lt;/b&gt;&lt;br&gt;Relieve pressure, protect neurologic function, preserve quality of life" vertex="1">
+          <mxGeometry height="75" width="360" x="70" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="tumorcare" parent="right" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#C74343;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Tumor care options&lt;/b&gt;&lt;br&gt;Surgery, radiation, chemotherapy, pain medication, rehab" vertex="1">
+          <mxGeometry height="85" width="360" x="70" y="205" as="geometry" />
+        </mxCell>
+        <mxCell id="chiaricare" parent="right" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6B46C1;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Chiari decompression&lt;/b&gt;&lt;br&gt;Remove small piece of skull or spine to relieve pressure" vertex="1">
+          <mxGeometry height="85" width="360" x="70" y="355" as="geometry" />
+        </mxCell>
+        <mxCell id="rehab" parent="right" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1F9A8A;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Recovery disciplines&lt;/b&gt;&lt;br&gt;Physical, occupational, or speech therapy when indicated" vertex="1">
+          <mxGeometry height="85" width="360" x="70" y="515" as="geometry" />
+        </mxCell>
+        <mxCell id="follow" parent="right" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2F855A;fontColor=#102A43;strokeWidth=2;spacing=8;" value="&lt;b&gt;Longitudinal follow-up&lt;/b&gt;&lt;br&gt;Symptom trend, imaging review, return-to-life milestones" vertex="1">
+          <mxGeometry height="75" width="360" x="70" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="sx_brain" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="workup" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="sx_spine" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="workup" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="sx_context" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="workup" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="workup" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="branch" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="branch" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="tumor" value="Tumor">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="branch" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="chiari" value="Chiari">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="branch" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="other" value="Other">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="tumor" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="tumorcare" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="chiari" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="chiaricare" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="other" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="goals" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="tumorcare" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="rehab" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="chiaricare" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="rehab" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="rehab" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="follow" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="goals" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="follow" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="explain" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;" target="goals" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="safety" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#486581;dashed=1;" target="workup" value="prompt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
